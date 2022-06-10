@@ -39,8 +39,19 @@ public class ConversationRepo {
         lstContent2.add(new Content(3, "fine How are You?", "17:52", false));
         Conversation pelegToNadav = new Conversation("peleg", "nadav",lstContent2);
 
+
+
+        //create conversation from peleg to itamar
+        List<Content> lstContent3 = new ArrayList<Content>();
+        lstContent3.add(new Content(1, "hi its itamar", "17:50", false));
+        lstContent3.add(new Content(2, "What up!", "17:51", true));
+        lstContent3.add(new Content(3, "fine How are You?", "17:52", false));
+        Conversation pelegToItamar = new Conversation("nadav", "itamar",lstContent3);
+
         this.lsConv.add(nadavToPeleg);
         this.lsConv.add(pelegToNadav);
+        this.lsConv.add(pelegToItamar);
+
 
         //create nadav User
         Contact pelegConNadav = new Contact("peleg","peleg","5555","hi","16:55");
@@ -61,6 +72,10 @@ public class ConversationRepo {
             }
         }
         return null;
+    }
+
+    public List<Contact> getContactList(){
+        return LoggedUser.getContacts();
     }
 
 
