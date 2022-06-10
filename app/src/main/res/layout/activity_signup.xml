@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".SignupActivity">
 
     <ImageView
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
         tools:ignore="MissingConstraints">
 
         <LinearLayout
-            android:id="@+id/login_llCard"
+            android:id="@+id/signup_llCard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -42,7 +42,7 @@
 
 
             <LinearLayout
-                android:id="@+id/login_llLogo"
+                android:id="@+id/signup_llLogo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -51,7 +51,7 @@
 
 
                 <ImageView
-                    android:id="@+id/login_logo"
+                    android:id="@+id/signup_logo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
@@ -62,7 +62,7 @@
                     app:srcCompat="@drawable/chat_app_logo" />
 
                 <TextView
-                    android:id="@+id/login_logoText"
+                    android:id="@+id/signup_logoText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -72,7 +72,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/login_llMain"
+                android:id="@+id/signup_llMain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -87,7 +87,27 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_fullname" />
+
+                    <EditText
+                        android:id="@+id/signup_etFullName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:hint="@string/signup_etFullname"
+                        android:inputType="textPersonName"
+                        android:minHeight="48dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -97,7 +117,7 @@
                         android:src="@drawable/ic_user" />
 
                     <EditText
-                        android:id="@+id/login_etUsername"
+                        android:id="@+id/signup_etUsername"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -120,11 +140,33 @@
                         android:src="@drawable/ic_pass" />
 
                     <EditText
-                        android:id="@+id/login_etPassword"
+                        android:id="@+id/signup_etPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:hint="@string/login_etPassword"
+                        android:inputType="textPassword"
+                        android:minHeight="48dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_pass" />
+
+                    <EditText
+                        android:id="@+id/signup_etRePass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:hint="@string/signup_etRePassword"
                         android:inputType="textPassword"
                         android:minHeight="48dp" />
 
@@ -141,20 +183,18 @@
                     android:text="@string/login_btnLogin"
                     android:textColor="@color/white" />
 
-
             </LinearLayout>
 
             <TextView
-                android:id="@+id/login_tvSignup"
+                android:id="@+id/signup_tvLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/login_tvRegister"
+                android:text="@string/signup_tvLogin"
+                android:textColor="@color/logoSecondary"
                 android:textSize="15.2sp"
-                android:textStyle="bold"
-                android:textColor="@color/logoSecondary"/>
+                android:textStyle="bold" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
