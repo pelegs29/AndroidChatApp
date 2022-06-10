@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ConversationActivity">
+
+    <LinearLayout
+        android:id="@+id/Conversation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+<!--        the friend details-->
+        <LinearLayout
+            android:id="@+id/topConv"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#00BCD4"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+
+            <ImageView
+                android:id="@+id/profilePic"
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="2dp"
+                tools:srcCompat="@drawable/profile5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/userNameCon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="4dp"
+                    android:text="Nadav Yakobovich"
+                    android:textColor="#151515">
+
+                </TextView>
+
+                    <TextView
+                        android:id="@+id/lastseen"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="last seen: 17:10">
+
+                    </TextView>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+<!--        the messages list-->
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/chatListWin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:text="here will be the chat">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:orientation="horizontal">
+
+
+            <EditText
+                android:id="@+id/inputWin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="3"
+                android:background="?attr/colorAccent"
+                android:ems="10"
+                android:hint="Write you Message Here">
+
+            </EditText>
+
+            <ImageButton
+                android:id="@+id/SendButtun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:contentDescription="@string/app_name"
+                android:minWidth="32dp"
+                android:src="@android:drawable/ic_menu_send" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

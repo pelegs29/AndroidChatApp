@@ -1,8 +1,13 @@
 package com.example.chatapp.entities;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.List;
 
+@Entity
 public class Conversation {
+    @PrimaryKey(autoGenerate = true)
     private int Id;
     private String from;
     private String to;

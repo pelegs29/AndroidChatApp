@@ -2,19 +2,15 @@ package com.example.chatapp.entities;
 
 public class Content {
     private int Id;
-    private int From;
-    private int To;
-    private String Time;
-    private String Type;
-    private String Message;
+    private String Content;
+    private String Created;
+    private boolean Sent;
 
-    public Content(int id, int from, int to, String time, String type, String message) {
+    public Content(int id, String content, String created, boolean sent) {
         Id = id;
-        From = from;
-        To = to;
-        Time = time;
-        Type = type;
-        Message = message;
+        Content = content;
+        Created = created;
+        Sent = sent;
     }
 
     public int getId() {
@@ -25,43 +21,27 @@ public class Content {
         Id = id;
     }
 
-    public int getFrom() {
-        return From;
+    public String getContent() {
+        return Content;
     }
 
-    public void setFrom(int from) {
-        From = from;
+    public void setContent(String content) {
+        Content = content;
     }
 
-    public int getTo() {
-        return To;
+    public String getCreated() {
+        return Created;
     }
 
-    public void setTo(int to) {
-        To = to;
+    public void setCreated(String created) {
+        Created = created;
     }
 
-    public String getTime() {
-        return Time;
+    public boolean isSent() {
+        return Sent;
     }
 
-    public void setTime(String time) {
-        Time = time;
-    }
-
-    public String getType() {
-        return Type;
-    }
-
-    public void setType(String type) {
-        Type = type;
-    }
-
-    public String getMessage() {
-        return Message;
-    }
-
-    public void setMessage(String message) {
-        Message = message;
+    public void setSent(boolean sent) {
+        Sent = sent;
     }
 }
