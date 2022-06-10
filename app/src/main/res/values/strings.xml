@@ -8,4 +8,5 @@
     <string name="signup_etFullname">Full Name</string>
     <string name="signup_etRePassword">Re-Enter Password</string>
     <string name="signup_tvLogin">Already have an account? Log In</string>
+    <string name="BaseUrl">http://10.0.2.2:5125/api/</string>
 </resources>

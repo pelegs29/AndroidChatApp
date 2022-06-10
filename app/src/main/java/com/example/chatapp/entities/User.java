@@ -15,6 +15,13 @@ public class User {
         Contacts = contacts;
     }
 
+    public User(String id, String password){
+        Id = id;
+        Name = null;
+        Password = password;
+        Contacts = null;
+    }
+
     public String getId() {
         return Id;
     }
