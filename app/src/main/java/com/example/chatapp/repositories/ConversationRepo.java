@@ -1,27 +1,34 @@
 package com.example.chatapp.repositories;
 
-import android.icu.util.LocaleData;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import com.example.chatapp.entities.Contact;
 import com.example.chatapp.entities.Content;
 import com.example.chatapp.entities.Conversation;
 import com.example.chatapp.entities.User;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class ConversationRepo {
 
     private List<Conversation> lsConv;
-    private User LoggedUser;
+    private static User loggedUser;
+    private static String token;
 
+    public static User getLoggedUser() {
+        return loggedUser;
+    }
 
+    public static void setLoggedUser(User loggedUser) {
+        ConversationRepo.loggedUser = loggedUser;
+    }
+
+    public static String getToken() {
+        return token;
+    }
+
+    public static void setToken(String token) {
+        ConversationRepo.token = token;
+    }
 
     public ConversationRepo() {
         this.lsConv = new ArrayList<Conversation>();
@@ -62,7 +69,7 @@ public class ConversationRepo {
 
         User nadav = new User( "nadav", "nadav Yakobivich","1234",nadavContacts);
 
-        this.LoggedUser= nadav;
+        loggedUser = nadav;
     }
 
     public Conversation getConv(String formUser, String toUSer){
@@ -75,7 +82,7 @@ public class ConversationRepo {
     }
 
     public List<Contact> getContactList(){
-        return LoggedUser.getContacts();
+        return loggedUser.getContacts();
     }
 
 
@@ -88,7 +95,7 @@ public class ConversationRepo {
     }
 
     public Contact getContact(String id){
-        for( Contact contact : LoggedUser.getContacts()){
+        for( Contact contact : loggedUser.getContacts()){
             if (contact.getId().equals(id)){
                 return contact;
             }

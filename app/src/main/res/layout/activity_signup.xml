@@ -169,10 +169,7 @@
                         android:hint="@string/signup_etRePassword"
                         android:inputType="textPassword"
                         android:minHeight="48dp" />
-
-
                 </LinearLayout>
-
 
                 <Button
                     android:id="@+id/signup_btnSignup"
@@ -181,7 +178,7 @@
                     android:layout_gravity="center"
                     android:backgroundTint="@color/logoPrimary"
                     android:ems="15"
-                    android:text="@string/login_btnLogin"
+                    android:text="@string/signup_btnSignup"
                     android:textColor="@color/white" />
 
             </LinearLayout>

@@ -1,47 +1,47 @@
 package com.example.chatapp.entities;
 
 public class Content {
-    private int Id;
-    private String Content;
-    private String Created;
-    private boolean Sent;
+    private int id;
+    private String content;
+    private String created;
+    private boolean sent;
 
     public Content(int id, String content, String created, boolean sent) {
-        Id = id;
-        Content = content;
-        Created = created;
-        Sent = sent;
+        this.id = id;
+        this.content = content;
+        this.created = created;
+        this.sent = sent;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getContent() {
-        return Content;
+        return content;
     }
 
     public void setContent(String content) {
-        Content = content;
+        this.content = content;
     }
 
     public String getCreated() {
-        return Created;
+        return created;
     }
 
     public void setCreated(String created) {
-        Created = created;
+        this.created = created;
     }
 
     public boolean isSent() {
-        return Sent;
+        return sent;
     }
 
     public void setSent(boolean sent) {
-        Sent = sent;
+        this.sent = sent;
     }
 }

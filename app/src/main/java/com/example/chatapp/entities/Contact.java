@@ -1,42 +1,42 @@
 package com.example.chatapp.entities;
 
 public class Contact {
-    private String Id;
-    private String Name;
-    private String Server;
+    private String id;
+    private String name;
+    private String server;
     private String last;
     private String lastdate;
 
     public Contact(String id, String name, String server, String last, String lastdate) {
-        Id = id;
-        Name = name;
-        Server = server;
+        this.id = id;
+        this.name = name;
+        this.server = server;
         this.last = last;
         this.lastdate = lastdate;
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getServer() {
-        return Server;
+        return server;
     }
 
     public void setServer(String server) {
-        Server = server;
+        this.server = server;
     }
 
     public String getLast() {
