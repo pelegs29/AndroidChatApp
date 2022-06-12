@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.chatapp">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET " />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".ChatApp"
@@ -23,23 +25,19 @@
             android:theme="@style/Theme.ChatApp.LoginSignup" />
         <activity
             android:name=".LoginActivity"
-            android:exported="false"
-            android:theme="@style/Theme.ChatApp.LoginSignup" />
+            android:exported="true"
+            android:theme="@style/Theme.ChatApp.LoginSignup">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ContactsActivity"
             android:exported="false" />
         <activity
             android:name=".ConversationActivity"
             android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

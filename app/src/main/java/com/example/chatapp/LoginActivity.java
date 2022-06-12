@@ -3,17 +3,31 @@ package com.example.chatapp;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.chatapp.api.UsersAPI;
 import com.example.chatapp.databinding.ActivityLoginBinding;
 import com.example.chatapp.entities.User;
+import com.example.chatapp.repositories.ConversationRepo;
 
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     private AlertDialog.Builder alertBuilder;
+
+
+    public void showAlert(int errorType) {
+        runOnUiThread(() -> {
+            if (errorType == -2) {
+                alertBuilder.setMessage("You have entered wrong credentials, please try again");
+            } else {
+                alertBuilder.setMessage("Something went wrong, please try again");
+            }
+            alertBuilder.show();
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
             User user = new User(username, password);
-            usersAPI.login(user, this, alertBuilder);
+            usersAPI.login(user, this);
         });
 
         binding.loginTvSignup.setOnClickListener(view -> {
@@ -48,5 +62,17 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public void goToMain() {
+        runOnUiThread(() -> {
+            String name = ConversationRepo.getLoggedUser().getName();
+            if (name.isEmpty()) {
+                name = ConversationRepo.getLoggedUser().getId();
+            }
+            String message = "Welcome back, " + name;
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        });
+        Intent i = new Intent(this, ConversationActivity.class);
+        startActivity(i);
+    }
 
 }

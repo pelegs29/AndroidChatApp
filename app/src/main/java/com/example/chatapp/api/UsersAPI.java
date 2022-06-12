@@ -1,11 +1,9 @@
 package com.example.chatapp.api;
 
-import android.app.AlertDialog;
-import android.content.Context;
-
 import com.example.chatapp.ChatApp;
 import com.example.chatapp.LoginActivity;
 import com.example.chatapp.R;
+import com.example.chatapp.SignupActivity;
 import com.example.chatapp.entities.User;
 import com.example.chatapp.repositories.ConversationRepo;
 import com.google.gson.Gson;
@@ -39,9 +37,7 @@ public class UsersAPI {
 
     }
 
-    public void login(User user, Context context, AlertDialog.Builder alertBuilder) {
-        LoginActivity loginActivity = (LoginActivity) context;
-
+    public void login(User user, LoginActivity activity) {
         Call<String> TokenCall = webServiceAPI.authUser(user);
         TokenCall.enqueue(new Callback<String>() {
             @Override
@@ -51,13 +47,10 @@ public class UsersAPI {
                     try {
                         if (response.errorBody() != null &&
                                 response.errorBody().string().equals("Invalid credentials")) {
-                            alertBuilder.setMessage("You have entered wrong credentials," +
-                                    " please try again");
-
+                            activity.showAlert(-2);
                         } else {
-                            alertBuilder.setMessage("Something went wrong, please try again");
+                            activity.showAlert(-1);
                         }
-                        loginActivity.runOnUiThread(alertBuilder::show);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -69,12 +62,11 @@ public class UsersAPI {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         if (response.code() == 400) {
-                            alertBuilder.setMessage("Something went wrong, please try again");
-                            alertBuilder.setPositiveButton("OK", (dialog, which) -> dialog.cancel());
-                            loginActivity.runOnUiThread(alertBuilder::show);
+                            activity.showAlert(-1);
                             return;
                         }
                         ConversationRepo.setLoggedUser(response.body());
+                        activity.goToMain();
                     }
 
                     @Override
@@ -91,15 +83,13 @@ public class UsersAPI {
         });
     }
 
-    public void findUsername(String username) {
+    public void findUsername(String username, SignupActivity activity) {
         Call<String> findCall = webServiceAPI.getIdByUsername(username);
         findCall.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                if (response.code() == 404) {
-                    //TODO: HANDLE USER NAME FIND
-                } else {
-
+                if (response.code() == 200) {
+                    activity.runOnUiThread(activity::usernameTaken);
                 }
             }
 
@@ -110,5 +100,41 @@ public class UsersAPI {
 
     }
 
+    public void addUser(User user, SignupActivity activity) {
+        Call<String> call = webServiceAPI.createUser(user);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                ConversationRepo.setToken("Bearer " + response.body());
+                if (response.code() == 400) {
+                    activity.showAlert();
+                    return;
+                }
+
+                Call<User> userCall = webServiceAPI.getUser(user.getId(), ConversationRepo.getToken());
+                userCall.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if (response.code() == 400) {
+                            activity.showAlert();
+                            return;
+                        }
+                        ConversationRepo.setLoggedUser(response.body());
+                        activity.goToMain();
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+    }
 
 }

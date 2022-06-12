@@ -1,20 +1,33 @@
 package com.example.chatapp;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.chatapp.api.UsersAPI;
 import com.example.chatapp.databinding.ActivitySignupBinding;
+import com.example.chatapp.entities.User;
+import com.example.chatapp.repositories.ConversationRepo;
 
 public class SignupActivity extends AppCompatActivity {
 
     private ActivitySignupBinding binding;
     boolean isAllFieldsChecked = false;
+    private AlertDialog.Builder alertBuilder;
+    private UsersAPI usersAPI;
+
+    public void showAlert() {
+        runOnUiThread(() -> {
+            alertBuilder.setMessage("Something went wrong, please try again");
+            alertBuilder.show();
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +35,18 @@ public class SignupActivity extends AppCompatActivity {
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        usersAPI = new UsersAPI();
+
+        alertBuilder = new AlertDialog.Builder(SignupActivity.this);
+        alertBuilder.setCancelable(true);
+        alertBuilder.setIcon(R.drawable.ic_warning);
+        alertBuilder.setTitle("Opps...");
+        alertBuilder.setPositiveButton("OK", (dialog, which) -> dialog.cancel());
+
+        setListeners();
+    }
+
+    private void setListeners() {
         binding.signupEtFullName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -82,6 +107,13 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
+        binding.signupEtUsername.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                UsersAPI usersAPI = new UsersAPI();
+                usersAPI.findUsername(binding.signupEtUsername.getText().toString(), this);
+            }
+        });
+
         binding.signupTvLogin.setOnClickListener(view -> {
             Intent i = new Intent(this, LoginActivity.class);
             startActivity(i);
@@ -90,11 +122,26 @@ public class SignupActivity extends AppCompatActivity {
         binding.signupBtnSignup.setOnClickListener(view -> {
             isAllFieldsChecked = CheckAllFields();
             if (isAllFieldsChecked) {
-                Intent i = new Intent(this, ConversationActivity.class);
-                startActivity(i);
+                String fullname = binding.signupEtFullName.getText().toString();
+                String username = binding.signupEtUsername.getText().toString();
+                String password = binding.signupEtPassword.getText().toString();
+                User user = new User(fullname, username, password);
+                usersAPI.addUser(user, this);
             }
-
         });
+    }
+
+    public void goToMain() {
+        runOnUiThread(() -> {
+            String name = ConversationRepo.getLoggedUser().getName();
+            if (name.isEmpty()) {
+                name = ConversationRepo.getLoggedUser().getId();
+            }
+            String message = "Welcome, " + name;
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        });
+        Intent i = new Intent(this, ConversationActivity.class);
+        startActivity(i);
     }
 
     private boolean checkPassword() {
@@ -127,6 +174,7 @@ public class SignupActivity extends AppCompatActivity {
         }
         return true;
     }
+
     private boolean checkFullName() {
         EditText fullnameBinding = binding.signupEtFullName;
         if (fullnameBinding.length() == 0) {
@@ -139,27 +187,22 @@ public class SignupActivity extends AppCompatActivity {
         }
         return true;
     }
+
     private boolean checkUsername() {
         EditText username = binding.signupEtUsername;
         if (username.length() == 0) {
             username.setError("This field is required");
             return false;
         }
-        if (!username.getText().toString().contains(" ")) {
+        if (username.getText().toString().contains(" ")) {
             username.setError("User name cannot contain spaces");
             return false;
         }
         return true;
     }
 
-    private boolean isUsernameAvailable(){
-        UsersAPI usersAPI = new UsersAPI();
-
-        //TODO: add user name find.
-        //String response = usersAPI.
-
-        return false;
-
+    public void usernameTaken() {
+        binding.signupEtUsername.setError("This username is taken");
     }
 
     private boolean checkRePassword() {
@@ -175,14 +218,15 @@ public class SignupActivity extends AppCompatActivity {
         }
         return true;
     }
+
     private boolean CheckAllFields() {
         if (!checkFullName()) {
             return false;
-        } else {
-
         }
 
         if (!checkUsername()) {
+            return false;
+        } else if (binding.signupEtUsername.getError() != null) {
             return false;
         }
 

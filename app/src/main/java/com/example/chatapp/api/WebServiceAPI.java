@@ -23,10 +23,9 @@ public interface WebServiceAPI {
     Call<List<User>> getAllUsers();
 
     @GET("users/{id}")
-    Call<User> getUser(@Path("id") String id,@Header("Authorization") String token);
+    Call<User> getUser(@Path("id") String id, @Header("Authorization") String token);
 
     @GET("users/find/{id}")
     Call<String> getIdByUsername(@Path("id") String id);
-
 
 }
