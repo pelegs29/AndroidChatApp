@@ -38,6 +38,11 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
             final Content  current = lstContent.get(position);
             holder.mess.setText(current.getContent());
             holder.time.setText(current.getCreated());
+            if(current.isSent() == true){
+                holder.itemView.setBackgroundColor(0xC8E6C9);
+            }else {
+                holder.itemView.setBackgroundColor(0xE3F2FD);
+            }
         }
 
 

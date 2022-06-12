@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.chatapp.entities.Content;
 import com.example.chatapp.entities.Conversation;
+import com.example.chatapp.entities.User;
+import com.example.chatapp.repositories.ContentDao;
 import com.example.chatapp.repositories.ConversationRepo;
 
 import java.text.DateFormat;
@@ -14,8 +16,8 @@ import java.util.List;
 
 public class ConversationViewModel extends ViewModel {
 
-
     private MutableLiveData<List<Content>> ls;
+
 
     public MutableLiveData<List<Content>> getCon(){
         if(ls == null){
@@ -24,13 +26,8 @@ public class ConversationViewModel extends ViewModel {
         return ls;
     }
 
-    public void addContent(String text){
-        String time = DateFormat.getDateTimeInstance().format(new Date());
-        Content newCon = new Content(1,text,time,true);
-        getCon().getValue().add(newCon);
-        ls.setValue(ls.getValue());
 
-    }
+
 
     //the repo Its purpose is to manage all connections with the database, whether the server or with the local database
 //    private ConversationRepo mRepository;

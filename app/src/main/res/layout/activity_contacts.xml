@@ -9,50 +9,51 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
+        android:background="#BBDEFB"
         android:orientation="vertical">
 
 
-    <!--        the friend details-->
-    <LinearLayout
-        android:id="@+id/topContactWin"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#00BCD4"
-        android:orientation="horizontal"
-        android:padding="2dp">
-
-
-        <ImageView
-            android:id="@+id/profilePicConWin"
-            android:layout_width="130dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="2dp"
-            tools:srcCompat="@drawable/profile5" />
-
+        <!--        the friend details-->
         <LinearLayout
+            android:id="@+id/topContactWin"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="4dp"
-            android:layout_weight="2"
-            android:orientation="vertical">
+            android:layout_height="60dp"
+            android:background="#00BCD4"
+            android:orientation="horizontal"
+            android:padding="2dp">
 
-            <TextView
-                android:id="@+id/userNameConWin"
-                android:layout_width="match_parent"
+
+            <ImageView
+                android:id="@+id/profilePicConWin"
+                android:layout_width="130dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="4dp"
-                android:text="Nadav Yakobovich"
-                android:textColor="#151515">
+                android:padding="2dp"
+                tools:srcCompat="@drawable/profile5" />
 
-            </TextView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/userNameConWin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="4dp"
+                    android:text="Nadav Yakobovich"
+                    android:textColor="#151515">
+
+                </TextView>
+
+            </LinearLayout>
+
 
         </LinearLayout>
-
-
-
-    </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -61,22 +62,43 @@
             android:gravity="center"
             android:text="My contacts list"
             android:textSize="20sp"></TextView>
-<!--    the contacts list -->
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/chatListWin"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="5dp"
-            android:text="here will be the chat">
+        <!--        the search Win-->
 
-        </androidx.recyclerview.widget.RecyclerView>
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <SearchView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content" />-->
+
+<!--            <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:id="@+id/search_bar"-->
+<!--                android:hint="Search for a friend here"-->
+<!--                android:layout_height="wrap_content" />-->
+
+<!--        </LinearLayout>-->
+        <!--    the contacts list -->
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/contact_rcContact"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="here will be the chat"
+                tools:listitem="@layout/singlecontact_layout">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </LinearLayout>
 
