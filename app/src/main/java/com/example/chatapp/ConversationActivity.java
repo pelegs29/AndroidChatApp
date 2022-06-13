@@ -14,8 +14,13 @@ import android.widget.TextView;
 
 import com.example.chatapp.adapters.ConversationAdapter;
 import com.example.chatapp.entities.Contact;
+import com.example.chatapp.entities.Content;
+import com.example.chatapp.entities.Conversation;
 import com.example.chatapp.repositories.ConversationRepo;
 import com.example.chatapp.viewmodels.ConversationViewModel;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 
 public class ConversationActivity extends AppCompatActivity {
@@ -31,9 +36,11 @@ public class ConversationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
 
+        if(getIntent().hasExtra("name") && getIntent().hasExtra("logged_Id")){
+            to = getIntent().getStringExtra("name");
+            from = getIntent().getStringExtra("logged_Id");
+        }
 
-        from = "nadav";
-        to = "peleg";
 
         repo = new ConversationRepo();
         Contact friend = repo.getContact(to);
@@ -42,8 +49,7 @@ public class ConversationActivity extends AppCompatActivity {
         TextView friendName = findViewById(R.id.userNameCon);
         friendName.setText(friend.getName());
 
-        TextView lastSeen =  findViewById(R.id.lastseen);
-        lastSeen.setText(friend.getLastdate());
+
 
 
         viewConversation =  new ViewModelProvider(this).get(ConversationViewModel.class);
@@ -51,7 +57,9 @@ public class ConversationActivity extends AppCompatActivity {
         ImageButton sendBtn = findViewById(R.id.SendButtun);
         EditText input = findViewById(R.id.inputWin);
 
-        sendBtn.setOnClickListener(v -> viewConversation.addContent(input.getText().toString()));
+        //when click the send button
+        sendBtn.setOnClickListener(v ->{ addContent( from,to,input.getText().toString());
+        });
 
         //set the friend contact info on the top of the win
 
@@ -63,12 +71,20 @@ public class ConversationActivity extends AppCompatActivity {
         convList.setAdapter(adapter); // connect the adapter to the RecyclerView
         convList.setLayoutManager(new LinearLayoutManager(this)); // make the item in the RecyclerView appear in liner order
 
-        viewConversation.getCon().setValue(repo.getConv(from,to).getContents());
-        adapter.setLstContent(repo.getConv(from,to).getContents());
+        Conversation currentConv = repo.getConv(from,to);
+        viewConversation.getCon().setValue(currentConv.getContents());
+        adapter.setLstContent(currentConv.getContents());
 
         // ls - contain the update Content List
         viewConversation.getCon().observe(this, ls -> adapter.setLstContent(ls) );
+    }
 
-
+    public void addContent(String from, String to, String text){
+        String time = DateFormat.getDateTimeInstance().format(new Date());
+        Content newCon = new Content(from,to,text,time,true);
+        repo.AddContent(newCon);
+        viewConversation.getCon().getValue().add(newCon);
+        viewConversation.getCon().setValue(viewConversation.getCon().getValue());
+//        viewConversation.set(ls.getValue());
     }
 }

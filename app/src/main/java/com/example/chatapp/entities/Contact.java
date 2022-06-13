@@ -1,42 +1,69 @@
 package com.example.chatapp.entities;
 
-public class Contact {
-    private String Id;
-    private String Name;
-    private String Server;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import java.util.Comparator;
+
+@Entity
+public class Contact implements Comparable<Contact> {
+    public void setDataId(int dataId) {
+        DataId = dataId;
+    }
+
+    @PrimaryKey(autoGenerate = true)
+    private int DataId;
+    private String id;
+    private String name;
+    private String server;
     private String last;
     private String lastdate;
+    private String contactOf; // the user that this contact is his contact
 
-    public Contact(String id, String name, String server, String last, String lastdate) {
-        Id = id;
-        Name = name;
-        Server = server;
+    public String getContactOf() {
+        return contactOf;
+    }
+
+    public void setContactOf(String contactOf) {
+        this.contactOf = contactOf;
+    }
+
+    public Contact(String id, String name, String server, String last, String lastdate,String contactOf) {
+        this.id = id;
+        this.name = name;
+        this.server = server;
         this.last = last;
         this.lastdate = lastdate;
+        this.contactOf = contactOf;
+    }
+    public int getDataId() {
+        return DataId;
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getServer() {
-        return Server;
+        return server;
     }
 
     public void setServer(String server) {
-        Server = server;
+        this.server = server;
     }
 
     public String getLast() {
@@ -53,5 +80,11 @@ public class Contact {
 
     public void setLastdate(String lastdate) {
         this.lastdate = lastdate;
+    }
+
+
+    @Override
+    public int compareTo(Contact o) {
+        return this.getLastdate().compareTo(o.getLastdate());
     }
 }

@@ -1,22 +1,20 @@
 package com.example.chatapp.entities;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
 import java.util.List;
 
-@Entity
+//@Entity
 public class Conversation {
-    @PrimaryKey(autoGenerate = true)
-    private int Id;
+//    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String from;
     private String to;
-    List<Content> Contents;
+    List<Content> contents;
+
 
     public Conversation(String from, String to, List<Content> contents) {
         this.from = from;
         this.to = to;
-        Contents = contents;
+        this.contents = contents;
     }
 
     public String getFrom() {
@@ -36,18 +34,18 @@ public class Conversation {
     }
 
     public List<Content> getContents() {
-        return Contents;
+        return contents;
     }
 
     public void setContents(List<Content> contents) {
-        Contents = contents;
+        this.contents = contents;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 }
