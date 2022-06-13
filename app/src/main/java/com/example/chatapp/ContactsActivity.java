@@ -1,31 +1,21 @@
 package com.example.chatapp;
 
-import androidx.annotation.RequiresApi;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-
 import com.example.chatapp.adapters.ContactsAdapter;
-import com.example.chatapp.adapters.ConversationAdapter;
 import com.example.chatapp.entities.Contact;
 import com.example.chatapp.repositories.ConversationRepo;
 import com.example.chatapp.viewmodels.ContactsViewModel;
-import com.example.chatapp.viewmodels.ConversationViewModel;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ContactsActivity extends AppCompatActivity {
 
@@ -34,17 +24,16 @@ public class ContactsActivity extends AppCompatActivity {
     ContactsAdapter adapter;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
 
-        String id_UserLogged = "nadav";
+//        String id_UserLogged = "nadav";
 
         repo = new ConversationRepo();
 
-        ConversationRepo.setLoggedUser(id_UserLogged);
+//        ConversationRepo.setLoggedUser(id_UserLogged);
 
 
         viewContacts =  new ViewModelProvider(this).get(ContactsViewModel.class);

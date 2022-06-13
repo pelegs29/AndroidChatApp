@@ -1,11 +1,7 @@
 package com.example.chatapp.entities;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
-import java.util.Comparator;
 
 @Entity
 public class Contact implements Comparable<Contact> {
@@ -27,7 +23,7 @@ public class Contact implements Comparable<Contact> {
     }
 
 
-    public Contact(String id, String name, String server, String last, String lastdate) {
+    public Contact(String id, String name, String server, String last, String lastdate, String contactOf) {
         this.id = id;
         this.name = name;
         this.server = server;
@@ -35,6 +31,7 @@ public class Contact implements Comparable<Contact> {
         this.lastdate = lastdate;
         this.contactOf = contactOf;
     }
+
     public int getDataId() {
         return DataId;
     }

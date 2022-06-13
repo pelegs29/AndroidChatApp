@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
             String message = "Welcome back, " + name;
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         });
-        Intent i = new Intent(this, ConversationActivity.class);
+        Intent i = new Intent(this, ContactsActivity.class);
         startActivity(i);
     }
 
