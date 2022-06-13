@@ -138,7 +138,7 @@
         android:background="#000000"
         android:backgroundTint="#64B5F6"
         android:contentDescription="Add contacts"
-        android:src="@drawable/addcontact_ic"
+        android:src="@drawable/ic_addcontact"
         app:backgroundTint="#989494"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
