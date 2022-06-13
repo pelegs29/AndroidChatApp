@@ -35,12 +35,12 @@ public class ConversationRepo {
 
         //create content(message) local db
         ContentDB contentDB = Room.databaseBuilder(myApplication.context, ContentDB.class, "ContentDB").allowMainThreadQueries().build();
-        this.contentDao = contentDB.Dao();
+        contentDao = contentDB.Dao();
         this.convListData = new convListData();
 
         //create contacts local db
         ContactDB contactDB = Room.databaseBuilder(myApplication.context, ContactDB.class, "ContactDB2").allowMainThreadQueries().build();
-        this.contactDao = contactDB.Dao();
+        contactDao = contactDB.Dao();
 //        User nadav = new User( "nadav", "nadav Yakobivich","1234",contactDao.index());
 
         //loggedUser = nadav;
@@ -66,9 +66,9 @@ public class ConversationRepo {
 //
 //    }
 
-    public Conversation getConv(String fromUser, String toUser) {
-        List<Content> contentList = contentDao.getContents(fromUser, toUser);
-        Conversation conversation = new Conversation(fromUser, toUser, contentList);
+    public Conversation getConv(String toUser) {
+        List<Content> contentList = contentDao.getContents(loggedUser.getId(), toUser);
+        Conversation conversation = new Conversation(loggedUser.getId(), toUser, contentList);
         return conversation;
     }
 
@@ -106,7 +106,7 @@ public class ConversationRepo {
     }
 
     public void addContact(Contact contact) {
-        this.contactDao.insert(contact);
+        contactDao.insert(contact);
         loggedUser.getContacts().add(contact);
     }
 

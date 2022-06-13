@@ -1,16 +1,16 @@
 package com.example.chatapp;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatapp.adapters.ConversationAdapter;
 import com.example.chatapp.entities.Contact;
@@ -71,7 +71,7 @@ public class ConversationActivity extends AppCompatActivity {
         convList.setAdapter(adapter); // connect the adapter to the RecyclerView
         convList.setLayoutManager(new LinearLayoutManager(this)); // make the item in the RecyclerView appear in liner order
 
-        Conversation currentConv = repo.getConv(from,to);
+        Conversation currentConv = repo.getConv(to);
         viewConversation.getCon().setValue(currentConv.getContents());
         adapter.setLstContent(currentConv.getContents());
 
