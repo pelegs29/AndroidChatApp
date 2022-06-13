@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="2dp"
-    android:background="#E1F5FE"
+    android:layout_marginBottom="1dp"
+    android:background="#f2f3f5"
     android:orientation="horizontal">
 
     <RelativeLayout

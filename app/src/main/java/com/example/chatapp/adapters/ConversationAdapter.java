@@ -2,12 +2,14 @@ package com.example.chatapp.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatapp.R;
@@ -38,10 +40,11 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
             final Content  current = lstContent.get(position);
             holder.mess.setText(current.getContent());
             holder.time.setText(current.getCreated());
-            if(current.isSent() == true){
-                holder.itemView.setBackgroundColor(0xC8E6C9);
+            if(current.isSent()){
+                holder.cardView.setBackgroundColor(Color.parseColor("#C8E6C9"));
+
             }else {
-                holder.itemView.setBackgroundColor(0xE3F2FD);
+                holder.cardView.setBackgroundColor(Color.parseColor("#E3F2FD"));
             }
         }
 
@@ -74,12 +77,14 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
 
         private final TextView mess;
         private final TextView time;
+        private CardView cardView;
 
         public ConvViewHolder( View itemView) {
             //get the element from the xml and create a new obj that contain the inner xml element separate
             super(itemView);
             mess = itemView.findViewById(R.id.messView);
             time = itemView.findViewById(R.id.timeMess);
+            cardView = itemView.findViewById(R.id.mess_layout_cardMess);
 
         }
     }

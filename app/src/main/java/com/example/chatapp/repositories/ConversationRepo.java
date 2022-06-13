@@ -15,49 +15,12 @@ import java.util.List;
 
 public class ConversationRepo {
 
-    private ContactDao contactDao;
-    private ContentDao contentDao;
+    static ContactDao contactDao;
+    static ContentDao contentDao;
     private convListData convListData;
-    static User LoggedUser;
+    static User loggedUser;
     private  MyApplication myApplication;
 
-    static boolean isReset ;
-//
-//
-//
-
-//
-    public Conversation getConv(String fromUser, String toUser){
-        List<Content> contentList = contentDao.getContents(fromUser,toUser);
-        Conversation conversation = new Conversation(fromUser,toUser,contentList);
-        return conversation;
-    }
-
-    public List<Contact> getContactList(){
-        return LoggedUser.getContacts();
-    }
-
-    public void AddContent(Content content){
-        contentDao.insert(content);
-        contactDao.getById(content.getTo());
-    }
-
-    public List<Content> getLsConv() {
-        return convListData.getValue();
-    }
-
-    public void setLsConv(ArrayList<Content> lsConv) {
-        this.convListData.setValue(lsConv); ;
-    }
-
-    public Contact getContact(String id){
-        for( Contact contact : LoggedUser.getContacts()){
-            if (contact.getId().equals(id)){
-                return contact;
-            }
-        }
-        return null;
-    }
 
     public ConversationRepo() {
         myApplication = new MyApplication();
@@ -68,13 +31,82 @@ public class ConversationRepo {
         this.convListData = new convListData();
 
         //create contacts local db
-        ContactDB contactDB = Room.databaseBuilder(myApplication.context,ContactDB.class,"ContactDB1").allowMainThreadQueries().build();
+        ContactDB contactDB = Room.databaseBuilder(myApplication.context,ContactDB.class,"ContactDB2").allowMainThreadQueries().build();
         this.contactDao = contactDB.Dao();
-        //AddData();
-        User nadav = new User( "nadav", "nadav Yakobivich","1234",contactDao.index());
+//        User nadav = new User( "nadav", "nadav Yakobivich","1234",contactDao.index());
 
-        LoggedUser= nadav;
+        //loggedUser = nadav;
     }
+
+    public  User getLoggedUser(){
+        return loggedUser;
+    }
+
+    public static void setLoggedUser(String id) {
+
+        //get the user info from the local db
+        List<Contact> contactList = contactDao.getUserContacts(id);
+        loggedUser = new User(id,id,null,contactList);
+        //AddData(); //to check add data to local
+
+
+        //get the data from the server
+
+    }
+
+    public Conversation getConv(String fromUser, String toUser){
+        List<Content> contentList = contentDao.getContents(fromUser,toUser);
+        Conversation conversation = new Conversation(fromUser,toUser,contentList);
+        return conversation;
+    }
+
+    public List<Contact> getContactList(){
+        return loggedUser.getContacts();
+    }
+
+    public void AddContent(Content content){
+        //insert to local db
+        contentDao.insert(content);
+
+        //update the last messages in the contact list
+        Contact curr = null;
+        List<Contact> contactList = loggedUser.getContacts();
+        for (Contact contact: contactList){
+            if (contact.getId().equals(content.getTo())){
+                curr = contact;
+                break;
+            }
+        }
+        assert curr != null;
+        curr.setLast(content.getContent());
+        curr.setLastdate(content.getCreated());
+        contactDao.update(curr);
+        //update the static user object
+        loggedUser.setContacts(contactDao.index());
+    }
+
+    public List<Content> getLsConv() {
+        return convListData.getValue();
+    }
+
+    public void setLsConv(ArrayList<Content> lsConv) {
+        this.convListData.setValue(lsConv); ;
+    }
+
+    public void addContact(Contact contact){
+        this.contactDao.insert(contact);
+        loggedUser.getContacts().add(contact);
+    }
+
+    public Contact getContact(String id){
+        for( Contact contact : loggedUser.getContacts()){
+            if (contact.getId().equals(id)){
+                return contact;
+            }
+        }
+        return null;
+    }
+
 
 
     class convListData extends MutableLiveData<List<Content>> {
@@ -92,37 +124,16 @@ public class ConversationRepo {
         }
     }
 
-    //for check add hard data for the local db
-    public void addContactToLocal(){
-        //create nadav User
-        Contact pelegConNadav = new Contact("peleg","peleg","5555","hi","16:55");
-        Contact itamarConNadav = new Contact("itamar","itamar","5555","hi its itamar","16:55");
-        ArrayList<Contact> nadavContacts = new ArrayList<Contact>();
-//        nadavContacts.add(pelegConNadav);
-//        nadavContacts.add(itamarConNadav);
-
-        contactDao.insert(pelegConNadav);
-        contactDao.insert(itamarConNadav);
-    }
-
-    public void AddData() {
 
 
-        //for check! only
-//        if(isReset == true){
-//            return;
-//        }
-//        isReset = true;
-        //contentDao.deleteAll();
+    public static void AddData() {
 
-        List<Conversation> lsConv;
-        lsConv = new ArrayList<Conversation>();
+
         //create conversation from nadav to peleg
         List<Content> lstContent1 = new ArrayList<>();
         lstContent1.add(new Content("nadav","peleg", "hi", "17:50", true));
         lstContent1.add(new Content("nadav","peleg", "What up!", "17:51", false));
         lstContent1.add(new Content("nadav","peleg", "fine How are You?", "17:52", true));
-        Conversation nadavToPeleg = new Conversation("nadav", "peleg",lstContent1);
 
 
 
@@ -131,14 +142,10 @@ public class ConversationRepo {
         lstContent3.add(new Content("nadav","itamar", "hi its itamar", "17:50", false));
         lstContent3.add(new Content("nadav","itamar", "What up!", "17:51", true));
         lstContent3.add(new Content("nadav","itamar", "fine How are You?", "17:52", false));
-        Conversation nadavToItamar = new Conversation("nadav", "itamar",lstContent3);
 
 
         //contactDao.deleteAll();
         addContactToLocal();
-
-
-
 
         for (Content content: lstContent1){
             contentDao.insert(content);
@@ -148,6 +155,16 @@ public class ConversationRepo {
             contentDao.insert(content);
         }
 
+    }
+
+    //for check add hard data for the local db
+    public static void addContactToLocal(){
+        //create nadav User
+        Contact pelegConNadav = new Contact("peleg","peleg","5555","hi","16:55",loggedUser.getId());
+        Contact itamarConNadav = new Contact("itamar","itamar","5555","hi its itamar","16:55",loggedUser.getId());
+
+        contactDao.insert(pelegConNadav);
+        contactDao.insert(itamarConNadav);
     }
 
 

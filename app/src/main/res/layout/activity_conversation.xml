@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".ConversationActivity">
 
     <LinearLayout
@@ -44,18 +45,12 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:padding="4dp"
-                    android:text="Nadav Yakobovich"
+                    tools:text="Nadav Yakobovich"
                     android:textColor="#151515">
 
                 </TextView>
 
-                <TextView
-                    android:id="@+id/lastseen"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="last seen: 17:10">
 
-                </TextView>
 
 
             </LinearLayout>
@@ -73,9 +68,10 @@
                 android:id="@+id/chatListWin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/background"
+                android:background="#1AAAAAAA"
                 android:padding="5dp"
-                android:text="here will be the chat">
+                tools:listitem="@layout/mess_layout"
+                tools:text="here will be the chat">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -97,6 +93,7 @@
                 android:layout_weight="3"
                 android:background="#BBDEFB"
                 android:ems="10"
+                android:inputType="text"
                 android:hint="Write you Message Here">
 
             </EditText>

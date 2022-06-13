@@ -5,27 +5,41 @@ import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Comparator;
+
 @Entity
-public class Contact {
+public class Contact implements Comparable<Contact> {
+    public void setDataId(int dataId) {
+        DataId = dataId;
+    }
+
     @PrimaryKey(autoGenerate = true)
     private int DataId;
     private String id;
     private String name;
-
-    public int getDataId() {
-        return DataId;
-    }
-
     private String server;
     private String last;
     private String lastdate;
+    private String contactOf; // the user that this contact is his contact
 
-    public Contact(String id, String name, String server, String last, String lastdate) {
+    public String getContactOf() {
+        return contactOf;
+    }
+
+    public void setContactOf(String contactOf) {
+        this.contactOf = contactOf;
+    }
+
+    public Contact(String id, String name, String server, String last, String lastdate,String contactOf) {
         this.id = id;
         this.name = name;
         this.server = server;
         this.last = last;
         this.lastdate = lastdate;
+        this.contactOf = contactOf;
+    }
+    public int getDataId() {
+        return DataId;
     }
 
     public String getId() {
@@ -66,5 +80,11 @@ public class Contact {
 
     public void setLastdate(String lastdate) {
         this.lastdate = lastdate;
+    }
+
+
+    @Override
+    public int compareTo(Contact o) {
+        return this.getLastdate().compareTo(o.getLastdate());
     }
 }

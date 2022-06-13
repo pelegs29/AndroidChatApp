@@ -49,8 +49,7 @@ public class ConversationActivity extends AppCompatActivity {
         TextView friendName = findViewById(R.id.userNameCon);
         friendName.setText(friend.getName());
 
-        TextView lastSeen =  findViewById(R.id.lastseen);
-        lastSeen.setText(friend.getLastdate());
+
 
 
         viewConversation =  new ViewModelProvider(this).get(ConversationViewModel.class);

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:backgroundTintMode="add"
+    android:hapticFeedbackEnabled="false"
+    tools:context=".AddNewContacts">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="216dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/addfriendicon" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:padding="6dp"
+            app:cardBackgroundColor="#3E61CD">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:backgroundTintMode="add"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text="Add new Contact"
+                    android:textColor="#E1F5FE"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginBottom="10dp"
+            android:padding="6dp">
+
+            <!--            the tag layout-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+
+                        <!--                the user Name-->
+
+                        <EditText
+                            android:id="@+id/addUser_username"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint=" UserName" />
+
+
+
+                    <!--                the nickname-->
+
+                    <EditText
+                        android:id="@+id/addUser_nickname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint=" Nick Name" />
+
+                    <!--the server-->
+
+                    <EditText
+                        android:id="@+id/addUser_server"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint=" Contact Server" />
+
+                    <!--the pic-->
+
+                    <EditText
+                        android:id="@+id/addUser_Pic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint=" Pic" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!--                the send Btn-->
+
+        <Button
+            android:id="@+id/addUser_sendbtn"
+            android:layout_width="match_parent"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="send" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

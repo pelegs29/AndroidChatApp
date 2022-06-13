@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey;
 public class Content {
     @PrimaryKey(autoGenerate = true)
     private int id;
-
     private String from;
     private String to;
     private String content;

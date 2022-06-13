@@ -1,47 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="1dp"
-    android:orientation="vertical">
+android:layout_height="wrap_content"
+android:layout_marginEnd="8dp"
+android:layout_marginTop="5dp">
 
-    <androidx.cardview.widget.CardView
+
+
+<androidx.cardview.widget.CardView
+    android:id="@+id/mess_layout_cardMess"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="#42A5F5"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true"
+    app:layout_constraintEnd_toEndOf="parent"
+    tools:ignore="MissingConstraints">
+
+    <LinearLayout
+        android:id="@+id/layout_gchat_container_me"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="#BBDEFB"
-        tools:ignore="MissingConstraints">
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <TextView
+            android:id="@+id/messView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints">
+            android:layout_marginBottom="8dp"
+            android:maxWidth="260dp"
+            android:paddingLeft="12dp"
+            android:paddingTop="8dp"
+            android:paddingRight="12dp"
+            android:text="This is a Message"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/messView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:layout_weight="1"
-                android:padding="4dp"
-                tools:text="hii how are you? is the trip was great?" />
+</androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/timeMess"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="4"
-                android:padding="4dp"
-                android:textSize="8sp"
-                tools:text="17:50 sunday" />
-
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+<TextView
+    android:id="@+id/timeMess"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="10:00"
+    android:textColor="#C0C0C0"
+    android:textSize="10sp"
+    app:layout_constraintBottom_toBottomOf="@+id/mess_layout_cardMess"
+    app:layout_constraintEnd_toStartOf="@+id/mess_layout_cardMess" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

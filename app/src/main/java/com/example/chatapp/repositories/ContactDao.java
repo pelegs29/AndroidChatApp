@@ -19,11 +19,12 @@ public interface ContactDao {
     @Query("SELECT * FROM contact WHERE id = :id")
     Contact get(int id);
 
-    @Query("SELECT * FROM contact WHERE 'id' = id")
-    Contact getById(String idFriend);
-//    @Query("SELECT * FROM contact WHERE `to` LIKE :to AND `from` LIKE :from")
-//    List<Content> getContents(String from, String to);
+    @Query("SELECT * FROM contact WHERE contactOf = :contactof")
+    List<Contact> getUserContacts(String contactof);
 
+//    @Query("SELECT * FROM contact WHERE 'id' = id")
+//    Contact getById(String idFriend);
+//
     @Insert
     void insert(Contact... contacts);
 
