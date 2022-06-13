@@ -31,7 +31,7 @@ public class ContactsActivity extends AppCompatActivity {
 
 //        String id_UserLogged = "nadav";
 
-        repo = new ConversationRepo();
+        //repo = new ConversationRepo();
 
 //        ConversationRepo.setLoggedUser(id_UserLogged);
 
@@ -45,15 +45,15 @@ public class ContactsActivity extends AppCompatActivity {
         contactList.setAdapter(adapter); // connect the adapter to the RecyclerView
         contactList.setLayoutManager(new LinearLayoutManager(this)); // make the item in the RecyclerView appear in liner order
 
-        List<Contact> sortListContacts = repo.getContactList();
+        List<Contact> sortListContacts = viewContacts.get().getValue();
         Collections.sort(sortListContacts,Collections.reverseOrder());
 
-        viewContacts.getCon().setValue(sortListContacts);
+//        viewContacts.getCon().setValue(sortListContacts);
         adapter.setLstContent(sortListContacts);
 
 
         // ls - contain the update Content List
-        viewContacts.getCon().observe(this, ls -> adapter.setLstContent(ls) );
+        viewContacts.get().observe(this, ls -> adapter.setLstContent(ls) );
 
         // set the function when the user click on item in the list
         contactList.setClickable(true);
@@ -69,39 +69,8 @@ public class ContactsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         //set the contact list order by the contact with the last message on the top
-        List<Contact> sortListContacts = repo.getContactList();
+        List<Contact> sortListContacts = viewContacts.get().getValue();
         Collections.sort(sortListContacts,Collections.reverseOrder());
         adapter.setLstContent(sortListContacts);
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu,menu);
-//        MenuItem menuItem = menu.findItem(R.id.action_search);
-//        SearchView searchView = (SearchView)  menuItem.getActionView();
-//        searchView.setQueryHint("Search here");
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//
-//            //if the user click on the icon
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            //action that take place on every key type on the input
-//            @RequiresApi(api = Build.VERSION_CODES.N)
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//
-//                List<Contact> curr =  adapter.getLstContent().stream().filter(x -> x.getId() == newText).collect(Collectors.toList());
-//                adapter.setLstContent(curr);
-//
-//                return false;
-//            }
-//        });
-//
-//        return super.onCreateOptionsMenu(menu);
-//    }
-
-
 }

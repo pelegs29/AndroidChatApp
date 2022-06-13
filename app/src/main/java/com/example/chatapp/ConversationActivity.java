@@ -17,6 +17,7 @@ import com.example.chatapp.entities.Contact;
 import com.example.chatapp.entities.Content;
 import com.example.chatapp.entities.Conversation;
 import com.example.chatapp.repositories.ConversationRepo;
+import com.example.chatapp.viewmodels.ContactsViewModel;
 import com.example.chatapp.viewmodels.ConversationViewModel;
 
 import java.text.DateFormat;
@@ -26,8 +27,8 @@ import java.util.Date;
 public class ConversationActivity extends AppCompatActivity {
 
     private ConversationViewModel viewConversation;
-    private ConversationRepo repo;
-    private String from; // the user logged id
+    private ContactsViewModel contactsViewModel;
+//    private ConversationRepo repo;
     private String to; //the friend id
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -36,20 +37,17 @@ public class ConversationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
 
-        if(getIntent().hasExtra("name") && getIntent().hasExtra("logged_Id")){
-            to = getIntent().getStringExtra("name");
-            from = getIntent().getStringExtra("logged_Id");
+        if(getIntent().hasExtra("friendID")){
+            to = getIntent().getStringExtra("friendID");
+            ConversationViewModel.setFriend(to);
         }
+        contactsViewModel = new ViewModelProvider(this).get((ContactsViewModel.class));
 
-
-        repo = new ConversationRepo();
-        Contact friend = repo.getContact(to);
+        Contact friend = contactsViewModel.getContactById(to);
 
         //set the friend name on the top
         TextView friendName = findViewById(R.id.userNameCon);
         friendName.setText(friend.getName());
-
-
 
 
         viewConversation = new ViewModelProvider(this).get(ConversationViewModel.class);
@@ -58,7 +56,7 @@ public class ConversationActivity extends AppCompatActivity {
         EditText input = findViewById(R.id.inputWin);
 
         //when click the send button
-        sendBtn.setOnClickListener(v ->{ addContent( from,to,input.getText().toString());
+        sendBtn.setOnClickListener(v ->{ addContent( to,input.getText().toString());
         });
 
         //set the friend contact info on the top of the win
@@ -71,20 +69,18 @@ public class ConversationActivity extends AppCompatActivity {
         convList.setAdapter(adapter); // connect the adapter to the RecyclerView
         convList.setLayoutManager(new LinearLayoutManager(this)); // make the item in the RecyclerView appear in liner order
 
-        Conversation currentConv = repo.getConv(from,to);
-        viewConversation.getCon().setValue(currentConv.getContents());
-        adapter.setLstContent(currentConv.getContents());
+        adapter.setLstContent(viewConversation.get().getValue());
 
         // ls - contain the update Content List
-        viewConversation.getCon().observe(this, ls -> adapter.setLstContent(ls) );
+        viewConversation.get().observe(this,ls-> adapter.setLstContent(ls));
     }
 
-    public void addContent(String from, String to, String text){
+    public void addContent( String to, String text){
         String time = DateFormat.getDateTimeInstance().format(new Date());
-        Content newCon = new Content(from,to,text,time,true);
-        repo.AddContent(newCon);
-        viewConversation.getCon().getValue().add(newCon);
-        viewConversation.getCon().setValue(viewConversation.getCon().getValue());
+        Content newCon = new Content(ConversationRepo.getLoggedUser().getId(),to,text,time,true);
+        viewConversation.addContent(newCon);
+//        viewConversation.getCon().getValue().add(newCon);
+//        viewConversation.getCon().setValue(viewConversation.getCon().getValue());
 //        viewConversation.set(ls.getValue());
     }
 }

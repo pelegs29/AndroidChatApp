@@ -1,10 +1,13 @@
 package com.example.chatapp.viewmodels;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.chatapp.entities.Contact;
 import com.example.chatapp.entities.Content;
+import com.example.chatapp.entities.Conversation;
+import com.example.chatapp.repositories.ConversationRepo;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -12,15 +15,22 @@ import java.util.List;
 
 public class ContactsViewModel extends ViewModel {
 
+    ConversationRepo repo;
+    private LiveData<List<Contact>> contactLiveData;
 
-    private MutableLiveData<List<Contact>> ls;
-
-    public MutableLiveData<List<Contact>> getCon(){
-        if(ls == null){
-            ls = new MutableLiveData<List<Contact>>();
-        }
-        return ls;
+    public ContactsViewModel() {
+        this.repo = new ConversationRepo();
+        this.contactLiveData = repo.getContactList();
     }
+
+    public  LiveData<List<Contact>> get(){
+        return contactLiveData;
+    }
+
+    public Contact getContactById(String id){
+        return repo.getContact(id);
+    }
+
 
 //    public void addContent(String text){
 //        String time = DateFormat.getDateTimeInstance().format(new Date());

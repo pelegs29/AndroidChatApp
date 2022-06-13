@@ -22,7 +22,6 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
 
     List<Contact> lstContacts;
     private final LayoutInflater mInflater;
-    String IdUserLogged = "nadav";
 
     public ContactsAdapter(Context context){
         mInflater = LayoutInflater.from(context);
@@ -46,8 +45,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
 
             holder.itemView.setOnClickListener(v -> {
               Intent intent = new Intent(holder.itemView.getContext(),ConversationActivity.class);
-                intent.putExtra("name", current.getId());
-                intent.putExtra("logged_Id",this.IdUserLogged);
+                intent.putExtra("friendID", current.getId());
                 holder.itemView.getContext().startActivities(new Intent[]{intent});
             });
         }
