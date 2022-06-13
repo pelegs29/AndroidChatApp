@@ -10,4 +10,8 @@
     <string name="signup_tvLogin">Already have an account? Log In</string>
     <string name="BaseUrl">http://10.0.2.2:5125/api/</string>
     <string name="signup_btnSignup">Sign Up</string>
+    <string name="login_backgroundDesc">background</string>
+    <string name="login_logoDesc">logo</string>
+    <string name="login_usernameIconDesc">username_icon</string>
+    <string name="login_passwordIconDesc">password_icon</string>
 </resources>

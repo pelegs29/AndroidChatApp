@@ -9,6 +9,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="@string/login_backgroundDesc"
         android:scaleType="centerCrop"
         android:src="@drawable/background" />
 
@@ -55,6 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
+                    android:contentDescription="@string/login_logoDesc"
                     android:maxWidth="80dp"
                     android:maxHeight="80dp"
                     android:padding="10dp"
@@ -94,6 +96,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="10dp"
+                        android:contentDescription="@string/login_usernameIconDesc"
                         android:src="@drawable/ic_user" />
 
                     <EditText
@@ -101,6 +104,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
+                        android:autofillHints="username"
                         android:hint="@string/login_etUsername"
                         android:inputType="textPersonName"
                         android:minHeight="48dp" />
@@ -114,6 +118,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:contentDescription="@string/login_passwordIconDesc"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="10dp"
@@ -124,6 +129,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
+                        android:autofillHints="password"
                         android:hint="@string/login_etPassword"
                         android:inputType="textPassword"
                         android:minHeight="48dp" />
@@ -151,9 +157,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/login_tvRegister"
+                android:textColor="@color/logoSecondary"
                 android:textSize="15.2sp"
-                android:textStyle="bold"
-                android:textColor="@color/logoSecondary"/>
+                android:textStyle="bold" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
