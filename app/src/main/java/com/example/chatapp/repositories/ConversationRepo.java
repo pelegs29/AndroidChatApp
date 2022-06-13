@@ -21,6 +21,13 @@ public class ConversationRepo {
     static User loggedUser;
     private  MyApplication myApplication;
 
+    public static String getToken() {
+        return token;
+    }
+
+    public static void setToken(String token) {
+        ConversationRepo.token = token;
+    }
 
     public ConversationRepo() {
         myApplication = new MyApplication();
@@ -41,6 +48,10 @@ public class ConversationRepo {
     public  User getLoggedUser(){
         return loggedUser;
     }
+
+//    public static void setLoggedUser(User loggedUser) {
+//        ConversationRepo.loggedUser = loggedUser;
+//    }
 
     public static void setLoggedUser(String id) {
 

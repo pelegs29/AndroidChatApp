@@ -26,11 +26,8 @@ public class Contact implements Comparable<Contact> {
         return contactOf;
     }
 
-    public void setContactOf(String contactOf) {
-        this.contactOf = contactOf;
-    }
 
-    public Contact(String id, String name, String server, String last, String lastdate,String contactOf) {
+    public Contact(String id, String name, String server, String last, String lastdate) {
         this.id = id;
         this.name = name;
         this.server = server;
@@ -40,6 +37,10 @@ public class Contact implements Comparable<Contact> {
     }
     public int getDataId() {
         return DataId;
+    }
+
+    public void setContactOf(String contactOf) {
+        this.contactOf = contactOf;
     }
 
     public String getId() {

@@ -3,47 +3,61 @@ package com.example.chatapp.entities;
 import java.util.List;
 
 public class User {
-    private String Id;
-    private String Name;
-    private String Password;
-    private List<Contact> Contacts;
+    private String id;
+    private String name;
+    private String password;
+    private List<Contact> contacts;
 
     public User(String id, String name, String password, List<Contact> contacts) {
-        Id = id;
-        Name = name;
-        Password = password;
-        Contacts = contacts;
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.contacts = contacts;
+    }
+
+    public User(String id, String password){
+        this.id = id;
+        this.name = null;
+        this.password = password;
+        this.contacts = null;
+    }
+
+    public User(String fullname, String id, String password){
+        this.id = id;
+        this.name = fullname;
+        this.password = password;
+        this.contacts = null;
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public List<Contact> getContacts() {
-        return Contacts;
+        return contacts;
     }
 
     public void setContacts(List<Contact> contacts) {
-        Contacts = contacts;
+        this.contacts = contacts;
     }
 }

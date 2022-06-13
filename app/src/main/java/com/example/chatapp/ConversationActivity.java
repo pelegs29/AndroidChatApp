@@ -27,8 +27,8 @@ public class ConversationActivity extends AppCompatActivity {
 
     private ConversationViewModel viewConversation;
     private ConversationRepo repo;
-    private String from ; // the user logged id
-    private String to ; //the friend id
+    private String from; // the user logged id
+    private String to; //the friend id
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -52,7 +52,7 @@ public class ConversationActivity extends AppCompatActivity {
 
 
 
-        viewConversation =  new ViewModelProvider(this).get(ConversationViewModel.class);
+        viewConversation = new ViewModelProvider(this).get(ConversationViewModel.class);
 
         ImageButton sendBtn = findViewById(R.id.SendButtun);
         EditText input = findViewById(R.id.inputWin);
