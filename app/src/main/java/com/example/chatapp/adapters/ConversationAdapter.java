@@ -39,7 +39,8 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         if (lstContent!= null){
             final Content  current = lstContent.get(position);
             holder.mess.setText(current.getContent());
-            holder.time.setText(current.getCreated());
+
+            holder.time.setText(parsJasonToTime(current.getCreated()));
             if(current.isSent()){
                 holder.cardView.setBackgroundColor(Color.parseColor("#C8E6C9"));
 
@@ -47,8 +48,6 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
                 holder.cardView.setBackgroundColor(Color.parseColor("#E3F2FD"));
             }
         }
-
-
     }
 
 
@@ -87,6 +86,14 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
             cardView = itemView.findViewById(R.id.mess_layout_cardMess);
 
         }
+    }
+
+    public  String parsJasonToTime(String jsTime){
+        String year = jsTime.substring(2,4);
+        String month = jsTime.substring(5,7);
+        String day = jsTime.substring(8,10);
+        String time = jsTime.substring(11,16);
+        return time + " " + day + "/" + month +"/" + year;
     }
 }
 

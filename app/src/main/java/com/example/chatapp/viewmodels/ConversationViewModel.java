@@ -36,35 +36,6 @@ public class ConversationViewModel extends ViewModel {
     public static void  setFriend(String friend){
         ConversationRepo.setFriendID(friend);
     }
-//    public MutableLiveData<List<Content>> getCon(){
-//        if(ls == null){
-//            ls = new MutableLiveData<List<Content>>();
-//        }
-//        return ls;
-//    }
-
-
-
-
-    //the repo Its purpose is to manage all connections with the database, whether the server or with the local database
-//    private ConversationRepo mRepository;
-//    private MutableLiveData<Conversation> conversation;
-//
-//    public ConversationViewModel(String friendName) {
-//        this.mRepository = new ConversationRepo();
-//        //get the conversation with the friend
-//        this.conversation = mRepository.getByFriendName(friendName);
-//    }
-//
-//    public MutableLiveData<Conversation> get(){
-//        return conversation;
-//    }
-//
-//    add
-//
-//    delete
-//
-//    reload
 
 
 

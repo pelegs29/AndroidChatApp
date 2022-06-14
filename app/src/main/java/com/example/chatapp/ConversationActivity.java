@@ -79,8 +79,6 @@ public class ConversationActivity extends AppCompatActivity {
         String time = DateFormat.getDateTimeInstance().format(new Date());
         Content newCon = new Content(ConversationRepo.getLoggedUser().getId(),to,text,time,true);
         viewConversation.addContent(newCon);
-//        viewConversation.getCon().getValue().add(newCon);
-//        viewConversation.getCon().setValue(viewConversation.getCon().getValue());
-//        viewConversation.set(ls.getValue());
+
     }
 }

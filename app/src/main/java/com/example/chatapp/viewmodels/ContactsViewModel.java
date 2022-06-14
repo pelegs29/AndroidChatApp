@@ -27,6 +27,10 @@ public class ContactsViewModel extends ViewModel {
         return contactLiveData;
     }
 
+    public void setUpContacts(){
+        repo.setUpContacts();
+    }
+
     public Contact getContactById(String id){
         return repo.getContact(id);
     }
