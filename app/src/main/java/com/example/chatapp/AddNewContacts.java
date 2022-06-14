@@ -11,6 +11,11 @@ import com.example.chatapp.entities.Contact;
 import com.example.chatapp.entities.Conversation;
 import com.example.chatapp.repositories.ConversationRepo;
 
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class AddNewContacts extends AppCompatActivity {
 
     @Override
@@ -30,8 +35,10 @@ public class AddNewContacts extends AppCompatActivity {
 
         btnSend.setOnClickListener(x->{
 
+            String time = DateFormat.getDateTimeInstance().format(new Date());
+
             //create a new contact and add
-            Contact contact = new Contact(name.getText().toString(),nickName.getText().toString(),server.getText().toString(),"","",repo.getLoggedUser().getId());
+            Contact contact = new Contact(name.getText().toString(),nickName.getText().toString(),server.getText().toString(),"","".toString(),repo.getLoggedUser().getId());
             repo.addContact(contact);
 
             //back to the contact page

@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
 import com.example.chatapp.ChatApp;
+import com.example.chatapp.api.ContactsAPI;
+import com.example.chatapp.api.MessagesAPI;
 import com.example.chatapp.api.UsersAPI;
 import com.example.chatapp.entities.Contact;
 import com.example.chatapp.entities.Content;
@@ -22,7 +24,7 @@ public class ConversationRepo {
     private ConvData convData;
     private ContactsData contactsData;
     static String friendID;
-    static boolean check = false;
+    private MessagesAPI messagesAPI;
 
 
     public static String getToken() {
@@ -34,6 +36,7 @@ public class ConversationRepo {
     }
 
     public ConversationRepo() {
+        this.messagesAPI = new MessagesAPI();
 
         //create content(message) local db
         ContentDB contentDB = Room.databaseBuilder(ChatApp.context, ContentDB.class, "ContentDB").allowMainThreadQueries().build();
@@ -46,10 +49,6 @@ public class ConversationRepo {
         convData = new ConvData();
         contactsData = new ContactsData();
 
-//        if (check == false){
-//            AddData();
-//        }
-//        check= true;
     }
 
 
@@ -59,28 +58,8 @@ public class ConversationRepo {
 
     public static void setLoggedUser(User loggedUser) {
         ConversationRepo.loggedUser = loggedUser;
-
-
-//        List<Contact> localList = contactDao.getUserContacts(loggedUser.getId());
-//        List<Contact> serverList = loggedUser.getContacts();
-////        for (Contact contactServer: serverList)
-////        for (Contact Servercon ; )
-////        for (Contact contact : localList){
-////            if (contact)
-//        }
     }
 
-//    public static void setLoggedUser(String id) {
-//
-//        //get the user info from the local db
-//        List<Contact> contactList = contactDao.getUserContacts(id);
-//        loggedUser = new User(id, id, null, contactList);
-//        //AddData(); //to check add data to local
-//
-//
-//        //get the data from the server
-//
-//    }
 
     public static String getFriendID() {
         return friendID;
@@ -111,6 +90,7 @@ public class ConversationRepo {
         convData.getValue().add(content);
         convData.setValue(convData.getValue());
 
+        messagesAPI.postMessage(content.getTo(),content);
 
         //update the last messages in the contact list
         Contact curr = null;
@@ -128,14 +108,31 @@ public class ConversationRepo {
         //update the static user object
         loggedUser.setContacts(contactDao.index());
 
-        //server
 
     }
 
+    public void setUpContacts(){
+        this.contactDao.deleteAll();
+
+
+        for (Contact contact : loggedUser.getContacts()){
+            contact.setContactOf(loggedUser.getId());
+            contactDao.insert(contact);
+        }
+        contactsData.setValue(loggedUser.getContacts());
+    }
 
     public void addContact(Contact contact) {
         this.contactDao.insert(contact);
         loggedUser.getContacts().add(contact);
+        //
+        //add to the server
+        ContactsAPI contactsAPI = new ContactsAPI();
+        contactsAPI.postContact(contact);
+
+        contactsData.setValue(loggedUser.getContacts());
+
+
     }
 
     public Contact getContact(String id) {
@@ -152,10 +149,12 @@ public class ConversationRepo {
 
         public ConvData() {
             super();
-            List<Content> contentList = contentDao.getContents(loggedUser.getId(), friendID);
-            setValue(contentList);
+            if(friendID != null) {
+                List<Content> contentList = contentDao.getContents(loggedUser.getId(), friendID);
+                setValue(contentList);
 
-            UsersAPI usersAPI = new UsersAPI();
+                messagesAPI.getConversation(friendID, this);
+            }
             //usersAPI.
         }
 
@@ -163,10 +162,10 @@ public class ConversationRepo {
         protected void onActive() {
             super.onActive();
 
-            new Thread(() -> {
-                List<Content> contentList = contentDao.getContents(loggedUser.getId(), friendID);
-                convData.postValue(contentList);
-            }).start();
+//            new Thread(() -> {
+//                List<Content> contentList = contentDao.getContents(loggedUser.getId(), friendID);
+//                convData.postValue(contentList);
+//            }).start();
         }
     }
 
@@ -177,16 +176,15 @@ public class ConversationRepo {
             List<Contact> contactList = contactDao.getUserContacts(loggedUser.getId());
             setValue(contactList);
 
-
-            UsersAPI usersAPI = new UsersAPI();
-            //usersAPI.
+            ContactsAPI contactsAPI = new ContactsAPI();
+            contactsAPI.getContacts(this);
         }
 
         @Override
         protected void onActive() {
             super.onActive();
 
-            new Thread(() -> contactsData.postValue(contactDao.getUserContacts(loggedUser.getId()))).start();
+//            new Thread(() -> contactsData.postValue(contactDao.getUserContacts(loggedUser.getId()))).start();
         }
     }
 

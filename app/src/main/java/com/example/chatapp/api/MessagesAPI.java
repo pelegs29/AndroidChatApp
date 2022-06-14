@@ -43,7 +43,7 @@ public class MessagesAPI {
             @Override
             public void onResponse(Call<List<Content>> call, Response<List<Content>> response) {
                 if (response.code() == 200) {
-                    ConvData.setValue(response.body());
+                    ConvData.postValue(response.body());
                 }
             }
 

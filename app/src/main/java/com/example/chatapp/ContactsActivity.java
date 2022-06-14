@@ -13,6 +13,7 @@ import com.example.chatapp.adapters.ContactsAdapter;
 import com.example.chatapp.entities.Contact;
 import com.example.chatapp.repositories.ConversationRepo;
 import com.example.chatapp.viewmodels.ContactsViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,14 +30,10 @@ public class ContactsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
 
-//        String id_UserLogged = "nadav";
-
-        //repo = new ConversationRepo();
-
-//        ConversationRepo.setLoggedUser(id_UserLogged);
-
 
         viewContacts =  new ViewModelProvider(this).get(ContactsViewModel.class);
+
+        viewContacts.setUpContacts();
 
         //the convList - hold the content in the win
         RecyclerView contactList = findViewById(R.id.contact_rcContact);
@@ -58,11 +55,13 @@ public class ContactsActivity extends AppCompatActivity {
         // set the function when the user click on item in the list
         contactList.setClickable(true);
 
-        Button addBtn = findViewById(R.id.contacts_add);
+        FloatingActionButton addBtn = findViewById(R.id.contacts_add);
         addBtn.setOnClickListener(v -> {
             Intent i = new Intent(this,AddNewContacts.class);
             startActivity(i);
         });
+
+
     }
 
     @Override

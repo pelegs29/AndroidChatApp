@@ -43,7 +43,7 @@ public class ContactsAPI {
             @Override
             public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
                 if (response.code() == 200) {
-                    ContactsData.setValue(response.body());
+                    ContactsData.postValue(response.body());
                 }
             }
 
