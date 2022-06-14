@@ -19,4 +19,6 @@
             @color/backgroundDark
         </item>
     </style>
+
+    <style name="Theme.ChatApp.noActionBar" parent="Theme.AppCompat.DayNight.NoActionBar"></style>
 </resources>

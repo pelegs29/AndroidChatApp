@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatapp.R;
@@ -22,35 +24,44 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     List<Content> lstContent;
     private final LayoutInflater mInflater;
 
-    public ConversationAdapter(Context context){
+    public ConversationAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
     }
 
     //create the element that will add to the list to display
     @Override
     public ConvViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.mess_layout, parent,false);
+        View itemView = mInflater.inflate(R.layout.mess_layout, parent, false);
         return new ConvViewHolder(itemView);
     }
 
     //add the new element to the listView/recycle
     @Override
     public void onBindViewHolder(@NonNull ConvViewHolder holder, int position) {
-        if (lstContent!= null){
-            final Content  current = lstContent.get(position);
+        if (lstContent != null) {
+            final Content current = lstContent.get(position);
             holder.mess.setText(current.getContent());
             holder.time.setText(current.getCreated());
-            if(current.isSent()){
-                holder.cardView.setBackgroundColor(Color.parseColor("#C8E6C9"));
+            if (current.isSent()) {
+                holder.cardView.setCardBackgroundColor(Color.parseColor("#C8E6C9"));
+            } else {
+                holder.cardView.setCardBackgroundColor(Color.parseColor("#E3F2FD"));
+                ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) holder.cardView.getLayoutParams();
+                layoutParams.endToEnd = 0;
+                layoutParams.startToStart = -1;
+                layoutParams.startToEnd = -1;
+                holder.cardView.setLayoutParams(layoutParams);
 
-            }else {
-                holder.cardView.setBackgroundColor(Color.parseColor("#E3F2FD"));
+                ConstraintLayout constraintLayout = holder.parentLayout;
+                ConstraintSet constraintSet = new ConstraintSet();
+                constraintSet.clone(constraintLayout);
+                constraintSet.connect(R.id.timeMess, ConstraintSet.BOTTOM, R.id.mess_layout_cardMess, ConstraintSet.BOTTOM, 0);
+                constraintSet.connect(R.id.timeMess, ConstraintSet.END, R.id.mess_layout_cardMess, ConstraintSet.START, 0);
+                constraintSet.connect(R.id.timeMess, ConstraintSet.START, -1, ConstraintSet.END, 0);
+                constraintSet.applyTo(constraintLayout);
             }
         }
-
-
     }
-
 
 
     @SuppressLint("NotifyDataSetChanged")
@@ -64,9 +75,9 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     }
 
     @Override
-    public  int getItemCount() {
-        if(lstContent != null){
-             return lstContent.size();
+    public int getItemCount() {
+        if (lstContent != null) {
+            return lstContent.size();
         }
         return 0;
     }
@@ -77,15 +88,16 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
 
         private final TextView mess;
         private final TextView time;
-        private CardView cardView;
+        private final CardView cardView;
+        private final ConstraintLayout parentLayout;
 
-        public ConvViewHolder( View itemView) {
+        public ConvViewHolder(View itemView) {
             //get the element from the xml and create a new obj that contain the inner xml element separate
             super(itemView);
             mess = itemView.findViewById(R.id.messView);
             time = itemView.findViewById(R.id.timeMess);
             cardView = itemView.findViewById(R.id.mess_layout_cardMess);
-
+            parentLayout = itemView.findViewById(R.id.mess_clMain);
         }
     }
 }

@@ -8,11 +8,9 @@ import com.example.chatapp.ChatApp;
 import com.example.chatapp.api.UsersAPI;
 import com.example.chatapp.entities.Contact;
 import com.example.chatapp.entities.Content;
-import com.example.chatapp.entities.Conversation;
 import com.example.chatapp.entities.User;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class ConversationRepo {
@@ -21,7 +19,6 @@ public class ConversationRepo {
     private ContentDao contentDao;
     static User loggedUser;
     static String token;
-    private ChatApp myApplication;
     private ConvData convData;
     private ContactsData contactsData;
     static String friendID;
@@ -37,25 +34,23 @@ public class ConversationRepo {
     }
 
     public ConversationRepo() {
-        myApplication = new ChatApp();
 
         //create content(message) local db
-        ContentDB contentDB = Room.databaseBuilder(myApplication.context, ContentDB.class, "ContentDB").allowMainThreadQueries().build();
+        ContentDB contentDB = Room.databaseBuilder(ChatApp.context, ContentDB.class, "ContentDB").allowMainThreadQueries().build();
         this.contentDao = contentDB.Dao();
 
         //create contacts local db
-        ContactDB contactDB = Room.databaseBuilder(myApplication.context, ContactDB.class, "ContactDB2").allowMainThreadQueries().build();
+        ContactDB contactDB = Room.databaseBuilder(ChatApp.context, ContactDB.class, "ContactDB2").allowMainThreadQueries().build();
         this.contactDao = contactDB.Dao();
 
         convData = new ConvData();
         contactsData = new ContactsData();
 
-        if (check == false){
-            AddData();
-        }
-        check= true;
+//        if (check == false){
+//            AddData();
+//        }
+//        check= true;
     }
-
 
 
     public static User getLoggedUser() {
@@ -96,7 +91,7 @@ public class ConversationRepo {
     }
 
 
-    public LiveData<List<Content>> getCov(){
+    public LiveData<List<Content>> getCov() {
         return convData;
     }
 
@@ -136,9 +131,6 @@ public class ConversationRepo {
         //server
 
     }
-
-
-
 
 
     public void addContact(Contact contact) {
@@ -199,7 +191,7 @@ public class ConversationRepo {
     }
 
 
-    public  void AddData() {
+    public void AddData() {
 
 
         //create conversation from nadav to pelegs29
@@ -230,7 +222,7 @@ public class ConversationRepo {
     }
 
     //for check add hard data for the local db
-    public  void addContactToLocal() {
+    public void addContactToLocal() {
         //create nadavyk User
         Contact pelegConNadav = new Contact("pelegs29", "pelegs29", "5555", "hi", "16:55", loggedUser.getId());
         Contact itamarConNadav = new Contact("itamarb", "itamarb", "5555", "hi its itamarb", "16:55", loggedUser.getId());
