@@ -2,6 +2,8 @@ package com.example.chatapp.api;
 
 import com.example.chatapp.entities.Contact;
 import com.example.chatapp.entities.Content;
+import com.example.chatapp.entities.FirebaseUser;
+import com.example.chatapp.entities.Invitation;
 import com.example.chatapp.entities.Transfer;
 import com.example.chatapp.entities.User;
 
@@ -56,7 +58,7 @@ public interface WebServiceAPI {
     //    ______________CrossServerController Requests______________
 
     @POST("firebase/register")
-    Call<Void> register(String username, String token, @Header("Authorization") String BearerToken);
+    Call<Void> register(@Body FirebaseUser user, @Header("Authorization") String BearerToken);
 
     @POST("transfer")
     Call<Void> transfer(@Body Transfer transfer, @Header("Authorization") String BearerToken);

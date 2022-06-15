@@ -2,6 +2,8 @@ package com.example.chatapp.api;
 
 import com.example.chatapp.ChatApp;
 import com.example.chatapp.R;
+import com.example.chatapp.entities.FirebaseUser;
+import com.example.chatapp.entities.Invitation;
 import com.example.chatapp.entities.Transfer;
 import com.example.chatapp.repositories.ConversationRepo;
 import com.google.gson.Gson;
@@ -30,11 +32,35 @@ public class CrossServerAPI {
                 .callbackExecutor(Executors.newSingleThreadExecutor())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
+
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
 
-    public void register(String username, String token) {
-        Call<Void> call = webServiceAPI.register(username, token, ConversationRepo.getToken());
+    public CrossServerAPI(String server) {
+        String serverPort = parseServerPort(server);
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:" + serverPort + "/api/")
+                .callbackExecutor(Executors.newSingleThreadExecutor())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        webServiceAPI = retrofit.create(WebServiceAPI.class);
+    }
+
+    private String parseServerPort(String server) {
+        int size = server.length();
+        if (server.endsWith("/")) {
+            return server.substring(size - 5, size - 1);
+        }
+        return server.substring(size - 4);
+    }
+
+    public void register(FirebaseUser user) {
+        Call<Void> call = webServiceAPI.register(user, ConversationRepo.getToken());
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

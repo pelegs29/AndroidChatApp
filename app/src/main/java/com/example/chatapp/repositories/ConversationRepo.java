@@ -5,10 +5,14 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
 import com.example.chatapp.ChatApp;
+import com.example.chatapp.R;
 import com.example.chatapp.api.ContactsAPI;
+import com.example.chatapp.api.CrossServerAPI;
 import com.example.chatapp.api.MessagesAPI;
 import com.example.chatapp.entities.Contact;
 import com.example.chatapp.entities.Content;
+import com.example.chatapp.entities.Invitation;
+import com.example.chatapp.entities.Transfer;
 import com.example.chatapp.entities.User;
 
 import java.util.ArrayList;
@@ -59,7 +63,6 @@ public class ConversationRepo {
         ConversationRepo.loggedUser = loggedUser;
     }
 
-
     public static String getFriendID() {
         return friendID;
     }
@@ -89,7 +92,8 @@ public class ConversationRepo {
         convData.getValue().add(content);
         convData.setValue(convData.getValue());
 
-        messagesAPI.postMessage(content.getTo(),content);
+        //insert to api server
+        messagesAPI.postMessage(content.getTo(), content);
 
         //update the last messages in the contact list
         Contact curr = null;
@@ -108,13 +112,17 @@ public class ConversationRepo {
         loggedUser.setContacts(contactDao.index());
 
 
+        CrossServerAPI crossServerAPI = new CrossServerAPI(curr.getServer());
+        //call transfer on friend server
+        Transfer transfer = new Transfer(content.getFrom(), content.getTo(), content.getContent());
+        crossServerAPI.transfer(transfer);
     }
 
-    public void setUpContacts(){
+    public void setUpContacts() {
         this.contactDao.deleteAll();
 
 
-        for (Contact contact : loggedUser.getContacts()){
+        for (Contact contact : loggedUser.getContacts()) {
             contact.setContactOf(loggedUser.getId());
             contactDao.insert(contact);
         }
@@ -124,12 +132,29 @@ public class ConversationRepo {
     public void addContact(Contact contact) {
         this.contactDao.insert(contact);
         loggedUser.getContacts().add(contact);
-        //
+
         //add to the server
         ContactsAPI contactsAPI = new ContactsAPI();
         contactsAPI.postContact(contact);
 
         contactsData.setValue(loggedUser.getContacts());
+
+        //send invitations to my server & friend's server
+        sendInvitations(contact);
+    }
+
+    private void sendInvitations(Contact contact) {
+        //sending invitation to my server from friend
+        Invitation friendInviteMe = new Invitation(contact.getId(),
+                getLoggedUser().getId(), contact.getServer(), contact.getName());
+        CrossServerAPI crossServerAPI = new CrossServerAPI();
+        crossServerAPI.invitation(friendInviteMe);
+
+        //sending invitation to friend's server from me
+        Invitation inviteFriend = new Invitation(loggedUser.getId(),
+                contact.getId(), ChatApp.context.getString(R.string.BaseUrl), null);
+        CrossServerAPI crossServerAPI1 = new CrossServerAPI(contact.getServer());
+        crossServerAPI1.invitation(inviteFriend);
     }
 
     public Contact getContact(String id) {
@@ -146,7 +171,7 @@ public class ConversationRepo {
 
         public ConvData() {
             super();
-            if(friendID != null) {
+            if (friendID != null) {
                 List<Content> contentList = contentDao.getContents(loggedUser.getId(), friendID);
                 setValue(contentList);
 

@@ -2,7 +2,6 @@ package com.example.chatapp.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +14,10 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.chatapp.ChatApp;
 import com.example.chatapp.R;
 import com.example.chatapp.entities.Content;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -62,9 +61,9 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
             holder.mess.setText(current.getContent());
             holder.time.setText(parsJasonToTime(current.getCreated()));
             if (current.isSent()) {
-                holder.cardView.setCardBackgroundColor(Color.parseColor("#C8E6C9"));
+                holder.cardView.setCardBackgroundColor(ChatApp.context.getColor(R.color.myBubble));
             } else {
-                holder.cardView.setCardBackgroundColor(Color.parseColor("#E3F2FD"));
+                holder.cardView.setCardBackgroundColor(ChatApp.context.getColor(R.color.friendBubble));
 //                ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) holder.cardView.getLayoutParams();
 //                layoutParams.endToEnd = 0;
 //                layoutParams.startToStart = -1;

@@ -1,4 +1,4 @@
-package com.example.chatapp.api;
+package com.example.chatapp.entities;
 
 public class Invitation {
 
