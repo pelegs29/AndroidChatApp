@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mess_clMain"
+    android:id="@+id/friend_mess_clMain"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,7 +12,7 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/mess_layout_cardMess"
+        android:id="@+id/friend_mess_layout_cardMess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/friendBubble"
@@ -25,13 +25,13 @@
         tools:ignore="MissingConstraints">
 
         <LinearLayout
-            android:id="@+id/layout_gchat_container_me"
+            android:id="@+id/friend_layout_gchat_container_me"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/messView"
+                android:id="@+id/friend_messView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -47,15 +47,15 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/timeMess"
+        android:id="@+id/friend_timeMess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="10:00"
-        android:textColor="#C0C0C0"
+        android:textColor="@color/white"
         android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/mess_layout_cardMess"
-        app:layout_constraintEnd_toStartOf="@+id/timeMess"
+        app:layout_constraintStart_toEndOf="@+id/friend_mess_layout_cardMess"
+        app:layout_constraintEnd_toStartOf="@+id/friend_timeMess"
         tools:ignore="NotSibling" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
