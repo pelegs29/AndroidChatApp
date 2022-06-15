@@ -71,7 +71,6 @@ public class ConversationActivity extends AppCompatActivity {
             convList.scrollToPosition(adapter.getItemCount() - 1);
         });
 
-
         adapter.setLstContent(viewConversation.get().getValue());
 
         // ls - contain the update Content List
