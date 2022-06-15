@@ -3,12 +3,14 @@ package com.example.chatapp.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatapp.ConversationActivity;
@@ -22,26 +24,24 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
 
     List<Contact> lstContacts;
     private final LayoutInflater mInflater;
-
     public ContactsAdapter(Context context){
         mInflater = LayoutInflater.from(context);
     }
-
     //create the element that will add to the list to display
     @Override
     public ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.singlecontact_layout, parent,false);
         return new ContactViewHolder(itemView);
     }
-
     //add the new element to the listView/recycle
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
         if (lstContacts!= null){
             final Contact  current = lstContacts.get(position);
             holder.lastMess.setText(current.getLast());
             holder.name.setText(current.getName());
-            holder.time.setText(current.getLastdate());
+            holder.time.setText(parsJasonToTime(current.getLastdate()));
 
             holder.itemView.setOnClickListener(v -> {
               Intent intent = new Intent(holder.itemView.getContext(),ConversationActivity.class);
@@ -50,9 +50,6 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
             });
         }
     }
-
-
-
     @SuppressLint("NotifyDataSetChanged")
     public void setLstContent(List<Contact> ls) {
         lstContacts = ls;
@@ -62,7 +59,6 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
     public List<Contact> getLstContent() {
         return lstContacts;
     }
-
     @Override
     public  int getItemCount() {
         if(lstContacts != null){
@@ -70,9 +66,6 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
         }
         return 0;
     }
-
-    ;
-
     class ContactViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView name; //the name of the contact
@@ -87,6 +80,16 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
             time = itemView.findViewById(R.id.singleContact_tvTimeMess);
             lastMess = itemView.findViewById(R.id.singleContact_tvLastMes);
         }
+    }
+
+    //determine how the date of the message will be display
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public  String parsJasonToTime(String jsTime){
+        String year = jsTime.substring(2,4);
+        String month = jsTime.substring(5,7);
+        String day = jsTime.substring(8,10);
+        String time = jsTime.substring(11,16);
+        return time + " " + day + "/" + month +"/" + year;
     }
 }
 

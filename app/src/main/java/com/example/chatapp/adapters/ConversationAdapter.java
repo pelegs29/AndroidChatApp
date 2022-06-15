@@ -3,12 +3,14 @@ package com.example.chatapp.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
@@ -17,15 +19,32 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.chatapp.R;
 import com.example.chatapp.entities.Content;
 
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapter.ConvViewHolder> {
 
     List<Content> lstContent;
     private final LayoutInflater mInflater;
+    //for the time
+    String yearNow;
+    int monthNow;
+    int dayNow;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public ConversationAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
+
+        //get the time runnig now for the time of the conversation
+
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+         this.yearNow  = String.valueOf(localDate.getYear()).substring(2,4);
+         this.monthNow =localDate.getMonthValue();
+         this.dayNow   = localDate.getDayOfMonth();
     }
 
     //create the element that will add to the list to display
@@ -36,6 +55,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     }
 
     //add the new element to the listView/recycle
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull ConvViewHolder holder, int position) {
         if (lstContent != null) {
@@ -101,11 +121,21 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         }
     }
 
+    //determine how the date of the message will be display
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public  String parsJasonToTime(String jsTime){
         String year = jsTime.substring(2,4);
         String month = jsTime.substring(5,7);
         String day = jsTime.substring(8,10);
         String time = jsTime.substring(11,16);
+
+        if(year.equals(yearNow) && Integer.parseInt(month) == monthNow && Integer.parseInt(day) == dayNow){
+            return time;
+        }
+        if(year.equals(yearNow)){
+            return time + " " + day + "/" + month ;
+
+        }
         return time + " " + day + "/" + month +"/" + year;
     }
 }
