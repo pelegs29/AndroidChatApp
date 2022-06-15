@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
 import com.example.chatapp.ChatApp;
+import com.example.chatapp.ConversationActivity;
 import com.example.chatapp.R;
 import com.example.chatapp.api.ContactsAPI;
 import com.example.chatapp.api.CrossServerAPI;
@@ -96,27 +97,32 @@ public class ConversationRepo {
         messagesAPI.postMessage(content.getTo(), content);
 
         //update the last messages in the contact list
-        Contact curr = null;
-        List<Contact> contactList = loggedUser.getContacts();
-        for (Contact contact : contactList) {
-            if (contact.getId().equals(content.getTo())) {
-                curr = contact;
-                break;
-            }
-        }
-        assert curr != null;
+        Contact curr = getContact(content.getTo());
+
         curr.setLast(content.getContent());
         curr.setLastdate(content.getCreated());
         contactDao.update(curr);
         //update the static user object
         loggedUser.setContacts(contactDao.index());
-
-
         CrossServerAPI crossServerAPI = new CrossServerAPI(curr.getServer());
         //call transfer on friend server
         Transfer transfer = new Transfer(content.getFrom(), content.getTo(), content.getContent());
         crossServerAPI.transfer(transfer);
     }
+
+    public void receivedMess(Content content){
+        //insert to local db
+        contentDao.insert(content);
+        convData.getValue().add(content);
+
+        //set the value  -> make the adapter restart
+        convData.postValue(convData.getValue());
+        Contact curr = getContact(content.getTo());
+        curr.setLast(content.getContent());
+        curr.setLastdate(content.getCreated());
+        //convData.getValue().notify();
+        contactDao.update(curr);
+}
 
 
     public void setUpContacts() {
