@@ -10,6 +10,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.example.chatapp.entities.Content;
 import com.example.chatapp.repositories.ConversationRepo;
+import com.example.chatapp.viewmodels.ContactsViewModel;
 import com.example.chatapp.viewmodels.ConversationViewModel;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -18,14 +19,7 @@ import java.util.List;
 
 public class firebaseService extends FirebaseMessagingService {
     static ConversationViewModel conversationViewModel;
-
-    public static ConversationViewModel getConversationViewModel() {
-        return conversationViewModel;
-    }
-
-    public static void setConversationViewModel(ConversationViewModel conversationViewModel) {
-        firebaseService.conversationViewModel = conversationViewModel;
-    }
+    static ContactsViewModel contactsViewModel;
 
     public firebaseService() {
     }
@@ -59,6 +53,24 @@ public class firebaseService extends FirebaseMessagingService {
             notificationManager.createNotificationChannel(channel);
         }
     }
+
+
+    public static ContactsViewModel getContactsViewModel() {
+        return contactsViewModel;
+    }
+
+    public static void setContactsViewModel(ContactsViewModel contactsViewModel) {
+        firebaseService.contactsViewModel = contactsViewModel;
+    }
+
+    public static ConversationViewModel getConversationViewModel() {
+        return conversationViewModel;
+    }
+
+    public static void setConversationViewModel(ConversationViewModel conversationViewModel) {
+        firebaseService.conversationViewModel = conversationViewModel;
+    }
+
 
 
 }
