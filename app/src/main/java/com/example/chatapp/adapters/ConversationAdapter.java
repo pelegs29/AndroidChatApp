@@ -2,7 +2,6 @@ package com.example.chatapp.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +14,10 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.chatapp.ChatApp;
 import com.example.chatapp.R;
 import com.example.chatapp.entities.Content;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -49,7 +48,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     //create the element that will add to the list to display
     @Override
     public ConvViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.mess_layout, parent, false);
+        View itemView = mInflater.inflate(R.layout.friend_message_layout, parent, false);
         return new ConvViewHolder(itemView);
     }
 
@@ -62,22 +61,9 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
             holder.mess.setText(current.getContent());
             holder.time.setText(parsJasonToTime(current.getCreated()));
             if (current.isSent()) {
-                holder.cardView.setCardBackgroundColor(Color.parseColor("#C8E6C9"));
+                holder.cardView.setCardBackgroundColor(ChatApp.context.getColor(R.color.myBubble));
             } else {
-                holder.cardView.setCardBackgroundColor(Color.parseColor("#E3F2FD"));
-//                ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) holder.cardView.getLayoutParams();
-//                layoutParams.endToEnd = 0;
-//                layoutParams.startToStart = -1;
-//                layoutParams.startToEnd = -1;
-//                holder.cardView.setLayoutParams(layoutParams);
-
-//                ConstraintLayout constraintLayout = holder.parentLayout;
-//                ConstraintSet constraintSet = new ConstraintSet();
-//                constraintSet.clone(constraintLayout);
-//                constraintSet.connect(R.id.timeMess, ConstraintSet.BOTTOM, R.id.mess_layout_cardMess, ConstraintSet.BOTTOM, 0);
-//                constraintSet.connect(R.id.timeMess, ConstraintSet.END, R.id.mess_layout_cardMess, ConstraintSet.START, 0);
-//                constraintSet.connect(R.id.timeMess, ConstraintSet.START, -1, ConstraintSet.END, 0);
-//                constraintSet.applyTo(constraintLayout);
+                holder.cardView.setCardBackgroundColor(ChatApp.context.getColor(R.color.friendBubble));
             }
         }
     }

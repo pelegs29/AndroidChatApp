@@ -67,7 +67,7 @@
         android:layout_below="@+id/topConv"
         android:background="#1AAAAAAA"
         android:padding="5dp"
-        tools:listitem="@layout/mess_layout"
+        tools:listitem="@layout/friend_message_layout"
         tools:text="here will be the chat">
 
     </androidx.recyclerview.widget.RecyclerView>

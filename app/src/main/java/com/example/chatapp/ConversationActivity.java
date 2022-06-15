@@ -4,7 +4,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -20,18 +19,14 @@ import com.example.chatapp.repositories.ConversationRepo;
 import com.example.chatapp.viewmodels.ContactsViewModel;
 import com.example.chatapp.viewmodels.ConversationViewModel;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 
 public class ConversationActivity extends AppCompatActivity {
 
     private ConversationViewModel viewConversation;
     private ContactsViewModel contactsViewModel;
-    private ScrollView scrollView;
     private String to; //the friend id
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -51,7 +46,6 @@ public class ConversationActivity extends AppCompatActivity {
         //set the friend name on the top
         TextView friendName = findViewById(R.id.userNameCon);
         friendName.setText(friend.getName());
-
 
         viewConversation = new ViewModelProvider(this).get(ConversationViewModel.class);
 

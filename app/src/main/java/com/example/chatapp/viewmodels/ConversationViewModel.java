@@ -1,18 +1,11 @@
 package com.example.chatapp.viewmodels;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.chatapp.entities.Contact;
 import com.example.chatapp.entities.Content;
-import com.example.chatapp.entities.Conversation;
-import com.example.chatapp.entities.User;
-import com.example.chatapp.repositories.ContentDao;
 import com.example.chatapp.repositories.ConversationRepo;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class ConversationViewModel extends ViewModel {
@@ -29,7 +22,7 @@ public class ConversationViewModel extends ViewModel {
     }
 
     public void addContent(Content contact){
-        repo.AddContent(contact);
+        repo.AddMessage(contact);
     }
 
     //set the id in the repo of the friend that the conversation is going to be
