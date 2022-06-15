@@ -2,10 +2,7 @@ package com.example.chatapp;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.Service;
-import android.content.Intent;
 import android.os.Build;
-import android.os.IBinder;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -15,28 +12,27 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class firebaseService extends FirebaseMessagingService {
+
     public firebaseService() {
     }
 
-
-
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
-        if(remoteMessage.getNotification() != null){
+        if (remoteMessage.getNotification() != null) {
             createNotificationChannel();
 
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"1")
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
                     .setSmallIcon(R.drawable.ic_notific).setContentTitle(remoteMessage.getNotification().getTitle())
                     .setContentText(remoteMessage.getNotification().getBody())
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
-            notificationManagerCompat.notify(1,builder.build());
+            notificationManagerCompat.notify(1, builder.build());
 
         }
     }
 
-    private  void createNotificationChannel(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("1", "My channel", importance);
             channel.setDescription("chat app notification channel");
@@ -45,9 +41,5 @@ public class firebaseService extends FirebaseMessagingService {
         }
     }
 
-//    @Override
-//    public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
-//        int a = 1;
-//    }
 
 }

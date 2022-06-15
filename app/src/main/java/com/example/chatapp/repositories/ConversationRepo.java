@@ -86,7 +86,7 @@ public class ConversationRepo {
         return contactsData;
     }
 
-    public void AddContent(Content content) {
+    public void AddMessage(Content content) {
         //insert to local db
         contentDao.insert(content);
         convData.getValue().add(content);
@@ -117,6 +117,7 @@ public class ConversationRepo {
         Transfer transfer = new Transfer(content.getFrom(), content.getTo(), content.getContent());
         crossServerAPI.transfer(transfer);
     }
+
 
     public void setUpContacts() {
         this.contactDao.deleteAll();

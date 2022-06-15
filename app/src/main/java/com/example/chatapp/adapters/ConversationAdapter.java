@@ -48,7 +48,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     //create the element that will add to the list to display
     @Override
     public ConvViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.mess_layout, parent, false);
+        View itemView = mInflater.inflate(R.layout.friend_message_layout, parent, false);
         return new ConvViewHolder(itemView);
     }
 
@@ -64,19 +64,6 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
                 holder.cardView.setCardBackgroundColor(ChatApp.context.getColor(R.color.myBubble));
             } else {
                 holder.cardView.setCardBackgroundColor(ChatApp.context.getColor(R.color.friendBubble));
-//                ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) holder.cardView.getLayoutParams();
-//                layoutParams.endToEnd = 0;
-//                layoutParams.startToStart = -1;
-//                layoutParams.startToEnd = -1;
-//                holder.cardView.setLayoutParams(layoutParams);
-
-//                ConstraintLayout constraintLayout = holder.parentLayout;
-//                ConstraintSet constraintSet = new ConstraintSet();
-//                constraintSet.clone(constraintLayout);
-//                constraintSet.connect(R.id.timeMess, ConstraintSet.BOTTOM, R.id.mess_layout_cardMess, ConstraintSet.BOTTOM, 0);
-//                constraintSet.connect(R.id.timeMess, ConstraintSet.END, R.id.mess_layout_cardMess, ConstraintSet.START, 0);
-//                constraintSet.connect(R.id.timeMess, ConstraintSet.START, -1, ConstraintSet.END, 0);
-//                constraintSet.applyTo(constraintLayout);
             }
         }
     }
