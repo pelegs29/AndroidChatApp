@@ -50,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="10:00"
-        android:textColor="#C0C0C0"
+        android:textColor="@color/white"
         android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@+id/mess_layout_cardMess"
         app:layout_constraintEnd_toStartOf="@+id/mess_layout_cardMess"
