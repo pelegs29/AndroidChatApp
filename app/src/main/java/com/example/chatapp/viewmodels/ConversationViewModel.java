@@ -21,6 +21,11 @@ public class ConversationViewModel extends ViewModel {
         return conversationLiveData;
     }
 
+
+    public void addContent2(Content contact){
+        repo.receivedMess(contact);
+    }
+
     public void addContent(Content contact){
         repo.AddMessage(contact);
     }

@@ -1,7 +1,10 @@
 package com.example.chatapp;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -48,6 +51,7 @@ public class ConversationActivity extends AppCompatActivity {
         friendName.setText(friend.getName());
 
         viewConversation = new ViewModelProvider(this).get(ConversationViewModel.class);
+        firebaseService.setConversationViewModel(viewConversation);
 
         ImageButton sendBtn = findViewById(R.id.SendButtun);
         EditText input = findViewById(R.id.inputWin);
@@ -71,6 +75,9 @@ public class ConversationActivity extends AppCompatActivity {
         viewConversation.get().observe(this, ls -> adapter.setLstContent(ls));
 
         convList.scrollToPosition(adapter.getItemCount() - 1);
+
+        Log.i(TAG, "onCreate: foo");
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -79,4 +86,18 @@ public class ConversationActivity extends AppCompatActivity {
         Content newCon = new Content(ConversationRepo.getLoggedUser().getId(), to, text, timeNew, true);
         viewConversation.addContent(newCon);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        firebaseService.setConversationViewModel(viewConversation);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        firebaseService.setConversationViewModel(null);
+    }
+
+
 }

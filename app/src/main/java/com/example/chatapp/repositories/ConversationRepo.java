@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
 import com.example.chatapp.ChatApp;
+import com.example.chatapp.ConversationActivity;
 import com.example.chatapp.R;
 import com.example.chatapp.api.ContactsAPI;
 import com.example.chatapp.api.CrossServerAPI;
@@ -113,11 +114,13 @@ public class ConversationRepo {
         //insert to local db
         contentDao.insert(content);
         convData.getValue().add(content);
+
         //set the value  -> make the adapter restart
-        convData.setValue(convData.getValue());
+        convData.postValue(convData.getValue());
         Contact curr = getContact(content.getTo());
         curr.setLast(content.getContent());
         curr.setLastdate(content.getCreated());
+        //convData.getValue().notify();
         contactDao.update(curr);
 }
 
