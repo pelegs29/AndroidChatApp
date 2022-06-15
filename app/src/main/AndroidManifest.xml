@@ -18,6 +18,16 @@
         android:theme="@style/Theme.ChatApp.noActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <service
+            android:name=".firebaseService"
+            android:enabled="true"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".AddNewContacts"
             android:exported="false" />
@@ -31,6 +41,7 @@
             android:theme="@style/Theme.ChatApp.LoginSignup">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -40,6 +51,7 @@
         <activity
             android:name=".ConversationActivity"
             android:exported="false" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

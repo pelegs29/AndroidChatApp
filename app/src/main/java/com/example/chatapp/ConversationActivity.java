@@ -21,6 +21,9 @@ import com.example.chatapp.viewmodels.ContactsViewModel;
 import com.example.chatapp.viewmodels.ConversationViewModel;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 
@@ -31,7 +34,7 @@ public class ConversationActivity extends AppCompatActivity {
     private ScrollView scrollView;
     private String to; //the friend id
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,9 +80,10 @@ public class ConversationActivity extends AppCompatActivity {
         convList.scrollToPosition(adapter.getItemCount() - 1);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void addContent(String to, String text) {
-        String time = DateFormat.getDateTimeInstance().format(new Date());
-        Content newCon = new Content(ConversationRepo.getLoggedUser().getId(), to, text, time, true);
+        String timeNew = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")).toString();
+        Content newCon = new Content(ConversationRepo.getLoggedUser().getId(), to, text, timeNew, true);
         viewConversation.addContent(newCon);
     }
 }

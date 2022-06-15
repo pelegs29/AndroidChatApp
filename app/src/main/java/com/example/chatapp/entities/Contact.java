@@ -83,6 +83,13 @@ public class Contact implements Comparable<Contact> {
 
     @Override
     public int compareTo(Contact o) {
+        //in case that a new contact the has not last message
+        if(this.last == null){
+            return 1;
+        }
+        if(o.getLastdate() == null){
+         return 1;
+        }
         return this.getLastdate().compareTo(o.getLastdate());
     }
 }
