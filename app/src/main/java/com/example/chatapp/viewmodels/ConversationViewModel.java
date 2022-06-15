@@ -17,24 +17,23 @@ public class ConversationViewModel extends ViewModel {
         this.conversationLiveData = repo.getCov();
     }
 
-    public  LiveData<List<Content>> get(){
+    public LiveData<List<Content>> get() {
         return conversationLiveData;
     }
 
 
-    public void addContent2(Content contact){
+    public void addContent2(Content contact) {
         repo.receivedMess(contact);
     }
 
-    public void addContent(Content contact){
+    public void addContent(Content contact) {
         repo.AddMessage(contact);
     }
 
     //set the id in the repo of the friend that the conversation is going to be
-    public static void  setFriend(String friend){
+    public static void setFriend(String friend) {
         ConversationRepo.setFriendID(friend);
     }
-
 
 
 }

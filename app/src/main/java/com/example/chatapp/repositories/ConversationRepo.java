@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
 import com.example.chatapp.ChatApp;
-import com.example.chatapp.ConversationActivity;
 import com.example.chatapp.R;
 import com.example.chatapp.api.ContactsAPI;
 import com.example.chatapp.api.CrossServerAPI;
@@ -184,7 +183,6 @@ public class ConversationRepo {
 
                 messagesAPI.getConversation(friendID, this);
             }
-            //usersAPI.
         }
 
         @Override

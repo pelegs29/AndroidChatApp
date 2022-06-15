@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -31,6 +32,8 @@ public class ConversationActivity extends AppCompatActivity {
     private ConversationViewModel viewConversation;
     private ContactsViewModel contactsViewModel;
     private String to; //the friend id
+    private ConversationAdapter adapter;
+    private RecyclerView convList;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -57,32 +60,54 @@ public class ConversationActivity extends AppCompatActivity {
         EditText input = findViewById(R.id.inputWin);
 
         //the convList - hold the content in the win
-        RecyclerView convList = findViewById(R.id.chatListWin);
+        convList = findViewById(R.id.chatListWin);
 
-        final ConversationAdapter adapter = new ConversationAdapter(this);
+        adapter = new ConversationAdapter(this);
         convList.setAdapter(adapter); // connect the adapter to the RecyclerView
         convList.setLayoutManager(new LinearLayoutManager(this)); // make the item in the RecyclerView appear in liner order
 
         //when click the send button
         sendBtn.setOnClickListener(v -> {
+            if (input.getText().toString().equals("")) {
+                return;
+            }
             addContent(to, input.getText().toString());
+            input.setText("");
             convList.scrollToPosition(adapter.getItemCount() - 1);
         });
 
         adapter.setLstContent(viewConversation.get().getValue());
 
         // ls - contain the update Content List
-        viewConversation.get().observe(this, ls -> adapter.setLstContent(ls));
+        viewConversation.get().observe(this, ls -> {
+            adapter.setLstContent(ls);
+            convList.scrollToPosition(adapter.getItemCount() - 1);
+        });
 
-        convList.scrollToPosition(adapter.getItemCount() - 1);
+        convList.addOnLayoutChangeListener((v, left, top, right, bottom,
+                                            oldLeft, oldTop, oldRight, oldBottom) -> {
+            if (bottom < oldBottom) {
+                convList.postDelayed(() ->
+                        convList.scrollToPosition(adapter.getItemCount() - 1), 100);
+            }
+        });
 
-        Log.i(TAG, "onCreate: foo");
+        input.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_GO) {
+                sendBtn.callOnClick();
+                return true;
+            }
+            return false;
+        });
+
+        Log.i(TAG, "onCreate: foo" + adapter.getItemCount());
+
 
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void addContent(String to, String text) {
-        String timeNew = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")).toString();
+        String timeNew = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
         Content newCon = new Content(ConversationRepo.getLoggedUser().getId(), to, text, timeNew, true);
         viewConversation.addContent(newCon);
     }
@@ -91,6 +116,7 @@ public class ConversationActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         firebaseService.setConversationViewModel(viewConversation);
+        //convList.scrollToPosition(adapter.getItemCount() - 1);
     }
 
     @Override

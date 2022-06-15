@@ -14,7 +14,7 @@ import com.example.chatapp.viewmodels.ConversationViewModel;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import java.util.List;
+import java.util.Objects;
 
 public class firebaseService extends FirebaseMessagingService {
     static ConversationViewModel conversationViewModel;
@@ -42,11 +42,23 @@ public class firebaseService extends FirebaseMessagingService {
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
             notificationManagerCompat.notify(1, builder.build());
 
-            Content content = new Content(ConversationRepo.getLoggedUser().getId(), remoteMessage.getData().get("fromUser"), remoteMessage.getNotification().getBody(), remoteMessage.getData().get("time"), false);
-            if (conversationViewModel != null) {
-                //update the conversation view model only when the conversation is active
-                conversationViewModel.addContent2(content);
+            Content content = new Content(
+                    ConversationRepo.getLoggedUser().getId(),
+                    remoteMessage.getData().get("fromUser"),
+                    remoteMessage.getNotification().getBody(),
+                    remoteMessage.getData().get("time"), false);
+
+            //type == 0 --> new message received
+            if (Objects.equals(remoteMessage.getData().get("type"), "0")) {
+                if (conversationViewModel != null) {
+                    //update the conversation view model only when the conversation is active
+                    conversationViewModel.addContent2(content);
+                }
+                // type == 1 --> user has been added
+            } else {
+                //nadav
             }
+
         }
     }
 
@@ -59,6 +71,4 @@ public class firebaseService extends FirebaseMessagingService {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
-
 }
