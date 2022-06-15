@@ -12,7 +12,6 @@ import com.google.gson.GsonBuilder;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,15 +53,15 @@ public class MessagesAPI {
     }
 
     public void postMessage(String friendId, Content content) {
-        Call<ResponseBody> call = webServiceAPI.postMessage(friendId, content,
+        Call<Void> call = webServiceAPI.postMessage(friendId, content,
                 ConversationRepo.getToken());
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
             }
         });
     }

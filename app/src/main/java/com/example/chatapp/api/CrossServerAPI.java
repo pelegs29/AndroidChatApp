@@ -1,29 +1,26 @@
 package com.example.chatapp.api;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.example.chatapp.ChatApp;
 import com.example.chatapp.R;
-import com.example.chatapp.entities.Contact;
+import com.example.chatapp.entities.Transfer;
 import com.example.chatapp.repositories.ConversationRepo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.List;
 import java.util.concurrent.Executors;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ContactsAPI {
+public class CrossServerAPI {
+
     Retrofit retrofit;
     WebServiceAPI webServiceAPI;
 
-    public ContactsAPI() {
+    public CrossServerAPI() {
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -36,25 +33,8 @@ public class ContactsAPI {
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
 
-
-    public void getContacts(MutableLiveData<List<Contact>> ContactsData) {
-        Call<List<Contact>> call = webServiceAPI.getContacts(ConversationRepo.getToken());
-        call.enqueue(new Callback<List<Contact>>() {
-            @Override
-            public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
-                if (response.code() == 200) {
-                    ContactsData.postValue(response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Contact>> call, Throwable t) {
-            }
-        });
-    }
-
-    public void postContact(Contact contact) {
-        Call<Void> call = webServiceAPI.postContact(contact, ConversationRepo.getToken());
+    public void register(String username, String token) {
+        Call<Void> call = webServiceAPI.register(username, token, ConversationRepo.getToken());
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -62,8 +42,34 @@ public class ContactsAPI {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-
             }
         });
     }
+
+    public void transfer(Transfer transfer) {
+        Call<Void> call = webServiceAPI.transfer(transfer, ConversationRepo.getToken());
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+            }
+        });
+    }
+
+    public void invitation(Invitation invitation) {
+        Call<Void> call = webServiceAPI.invitation(invitation, ConversationRepo.getToken());
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+            }
+        });
+    }
+
 }

@@ -7,7 +7,6 @@ import androidx.room.Room;
 import com.example.chatapp.ChatApp;
 import com.example.chatapp.api.ContactsAPI;
 import com.example.chatapp.api.MessagesAPI;
-import com.example.chatapp.api.UsersAPI;
 import com.example.chatapp.entities.Contact;
 import com.example.chatapp.entities.Content;
 import com.example.chatapp.entities.User;
@@ -131,8 +130,6 @@ public class ConversationRepo {
         contactsAPI.postContact(contact);
 
         contactsData.setValue(loggedUser.getContacts());
-
-
     }
 
     public Contact getContact(String id) {

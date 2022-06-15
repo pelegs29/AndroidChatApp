@@ -4,6 +4,8 @@
     <color name="logoPrimary">#0391FD</color>
     <color name="logoSecondary">#0f71d3</color>
     <color name="backgroundDark">#002446</color>
+    <color name="myBubble">#C8E6C9</color>
+    <color name="friendBubble">#E3F2FD</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>

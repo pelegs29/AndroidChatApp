@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatapp.R;
@@ -46,19 +45,19 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
                 holder.cardView.setCardBackgroundColor(Color.parseColor("#C8E6C9"));
             } else {
                 holder.cardView.setCardBackgroundColor(Color.parseColor("#E3F2FD"));
-                ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) holder.cardView.getLayoutParams();
-                layoutParams.endToEnd = 0;
-                layoutParams.startToStart = -1;
-                layoutParams.startToEnd = -1;
-                holder.cardView.setLayoutParams(layoutParams);
+//                ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) holder.cardView.getLayoutParams();
+//                layoutParams.endToEnd = 0;
+//                layoutParams.startToStart = -1;
+//                layoutParams.startToEnd = -1;
+//                holder.cardView.setLayoutParams(layoutParams);
 
-                ConstraintLayout constraintLayout = holder.parentLayout;
-                ConstraintSet constraintSet = new ConstraintSet();
-                constraintSet.clone(constraintLayout);
-                constraintSet.connect(R.id.timeMess, ConstraintSet.BOTTOM, R.id.mess_layout_cardMess, ConstraintSet.BOTTOM, 0);
-                constraintSet.connect(R.id.timeMess, ConstraintSet.END, R.id.mess_layout_cardMess, ConstraintSet.START, 0);
-                constraintSet.connect(R.id.timeMess, ConstraintSet.START, -1, ConstraintSet.END, 0);
-                constraintSet.applyTo(constraintLayout);
+//                ConstraintLayout constraintLayout = holder.parentLayout;
+//                ConstraintSet constraintSet = new ConstraintSet();
+//                constraintSet.clone(constraintLayout);
+//                constraintSet.connect(R.id.timeMess, ConstraintSet.BOTTOM, R.id.mess_layout_cardMess, ConstraintSet.BOTTOM, 0);
+//                constraintSet.connect(R.id.timeMess, ConstraintSet.END, R.id.mess_layout_cardMess, ConstraintSet.START, 0);
+//                constraintSet.connect(R.id.timeMess, ConstraintSet.START, -1, ConstraintSet.END, 0);
+//                constraintSet.applyTo(constraintLayout);
             }
         }
     }
