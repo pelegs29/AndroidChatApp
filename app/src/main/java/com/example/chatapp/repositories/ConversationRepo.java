@@ -76,11 +76,6 @@ public class ConversationRepo {
         return convData;
     }
 
-//    public Conversation getConv( String toUser) {
-//        List<Content> contentList = contentDao.getContents(loggedUser.getId(), toUser);
-//        Conversation conversation = new Conversation(loggedUser.getId(), toUser, contentList);
-//        return conversation;
-//    }
 
     public LiveData<List<Contact>> getContactList() {
         return contactsData;

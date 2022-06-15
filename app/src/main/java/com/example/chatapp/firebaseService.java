@@ -10,6 +10,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.example.chatapp.entities.Content;
 import com.example.chatapp.repositories.ConversationRepo;
+import com.example.chatapp.viewmodels.ContactsViewModel;
 import com.example.chatapp.viewmodels.ConversationViewModel;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
