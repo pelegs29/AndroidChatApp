@@ -89,32 +89,35 @@ public class ConversationRepo {
         convData.getValue().add(content);
         convData.setValue(convData.getValue());
 
-        messagesAPI.postMessage(content.getTo(),content);
+        messagesAPI.postMessage(content.getTo(), content);
 
         //update the last messages in the contact list
-        Contact curr = null;
-        List<Contact> contactList = loggedUser.getContacts();
-        for (Contact contact : contactList) {
-            if (contact.getId().equals(content.getTo())) {
-                curr = contact;
-                break;
-            }
-        }
-        assert curr != null;
+        Contact curr = getContact(content.getTo());
+
         curr.setLast(content.getContent());
         curr.setLastdate(content.getCreated());
         contactDao.update(curr);
         //update the static user object
         loggedUser.setContacts(contactDao.index());
-
-
     }
 
-    public void setUpContacts(){
+    public void receivedMess(Content content){
+        //insert to local db
+        contentDao.insert(content);
+        convData.getValue().add(content);
+        //set the value  -> make the adapter restart
+        convData.setValue(convData.getValue());
+        Contact curr = getContact(content.getTo());
+        curr.setLast(content.getContent());
+        curr.setLastdate(content.getCreated());
+        contactDao.update(curr);
+    }
+
+    public void setUpContacts() {
         this.contactDao.deleteAll();
 
 
-        for (Contact contact : loggedUser.getContacts()){
+        for (Contact contact : loggedUser.getContacts()) {
             contact.setContactOf(loggedUser.getId());
             contactDao.insert(contact);
         }
@@ -146,7 +149,7 @@ public class ConversationRepo {
 
         public ConvData() {
             super();
-            if(friendID != null) {
+            if (friendID != null) {
                 List<Content> contentList = contentDao.getContents(loggedUser.getId(), friendID);
                 setValue(contentList);
 
