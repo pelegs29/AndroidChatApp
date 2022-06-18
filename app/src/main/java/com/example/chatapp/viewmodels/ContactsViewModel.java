@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.chatapp.entities.Contact;
 import com.example.chatapp.entities.Content;
 import com.example.chatapp.entities.Conversation;
+import com.example.chatapp.entities.User;
 import com.example.chatapp.repositories.ConversationRepo;
 
 import java.text.DateFormat;
@@ -24,7 +25,9 @@ public class ContactsViewModel extends ViewModel {
     }
 
     public  LiveData<List<Contact>> get(){
-        return contactLiveData;
+        //sent request to update the data from the server
+        //repo.updateContclsFromServer();
+        return repo.getContactList();
     }
 
     public void setUpContacts(){
@@ -33,6 +36,14 @@ public class ContactsViewModel extends ViewModel {
 
     public Contact getContactById(String id){
         return repo.getContact(id);
+    }
+
+    public  void updateContat(Content content){
+        repo.updateContactList(content);
+    }
+
+    public User getUserLogged(){
+        return ConversationRepo.getLoggedUser();
     }
 
 

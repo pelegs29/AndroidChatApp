@@ -37,9 +37,19 @@ public class firebaseService extends FirebaseMessagingService {
             notificationManagerCompat.notify(1, builder.build());
 
             Content content = new Content(ConversationRepo.getLoggedUser().getId(), remoteMessage.getData().get("fromUser"), remoteMessage.getNotification().getBody(), remoteMessage.getData().get("time"), false);
+
+            //TODO
+            //need to fix!1
+            if(content.getTo().equals(content.getFrom())){
+                return;
+            }
+
             if (conversationViewModel != null) {
                 //update the conversation view model only when the conversation is active
                 conversationViewModel.addContent2(content);
+            }else{
+                //the user is the contacts page
+                contactsViewModel.updateContat(content);
             }
         }
     }

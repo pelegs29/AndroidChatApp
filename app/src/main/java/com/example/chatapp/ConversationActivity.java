@@ -82,7 +82,7 @@ public class ConversationActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void addContent(String to, String text) {
-        String timeNew = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")).toString();
+        String timeNew = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")).toString();
         Content newCon = new Content(ConversationRepo.getLoggedUser().getId(), to, text, timeNew, true);
         viewConversation.addContent(newCon);
     }

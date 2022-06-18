@@ -17,6 +17,7 @@ import com.example.chatapp.entities.Transfer;
 import com.example.chatapp.entities.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ConversationRepo {
@@ -26,7 +27,7 @@ public class ConversationRepo {
     static User loggedUser;
     static String token;
     private ConvData convData;
-    private ContactsData contactsData;
+    static ContactsData contactsData;
     static String friendID;
     private MessagesAPI messagesAPI;
 
@@ -92,11 +93,9 @@ public class ConversationRepo {
         messagesAPI.postMessage(content.getTo(), content);
 
         //update the last messages in the contact list
+        updateContact(content);
         Contact curr = getContact(content.getTo());
 
-        curr.setLast(content.getContent());
-        curr.setLastdate(content.getCreated());
-        contactDao.update(curr);
         //update the static user object
         loggedUser.setContacts(contactDao.index());
         CrossServerAPI crossServerAPI = new CrossServerAPI(curr.getServer());
@@ -105,25 +104,35 @@ public class ConversationRepo {
         crossServerAPI.transfer(transfer);
     }
 
-    public void receivedMess(Content content){
+    public void receivedMess(Content content) {
         //insert to local db
         contentDao.insert(content);
         convData.getValue().add(content);
 
         //set the value  -> make the adapter restart
         convData.postValue(convData.getValue());
+        updateContact(content);
+    }
+
+    //update the last messege and time of the last mess in the contact
+    public void updateContact(Content content){
         Contact curr = getContact(content.getTo());
         curr.setLast(content.getContent());
         curr.setLastdate(content.getCreated());
-        //convData.getValue().notify();
         contactDao.update(curr);
-}
+
+    }
+
+    public void updateContactList(Content content) {
+        updateContact(content);
+        Collections.sort(contactsData.getValue(), Collections.reverseOrder());
+        contactsData.postValue(contactsData.getValue());
+    }
 
 
+    //add all the contact form the server to the local data
     public void setUpContacts() {
         this.contactDao.deleteAll();
-
-
         for (Contact contact : loggedUser.getContacts()) {
             contact.setContactOf(loggedUser.getId());
             contactDao.insert(contact);
@@ -160,12 +169,16 @@ public class ConversationRepo {
     }
 
     public Contact getContact(String id) {
-        for (Contact contact : loggedUser.getContacts()) {
+        for (Contact contact : contactsData.getValue()) {
             if (contact.getId().equals(id)) {
                 return contact;
             }
         }
         return null;
+    }
+
+    public void updateContclsFromServer(){
+        contactsData.getFromserver();
     }
 
 
@@ -179,7 +192,6 @@ public class ConversationRepo {
 
                 messagesAPI.getConversation(friendID, this);
             }
-            //usersAPI.
         }
 
         @Override
@@ -204,6 +216,12 @@ public class ConversationRepo {
             contactsAPI.getContacts(this);
         }
 
+        public void getFromserver(){
+            ContactsAPI contactsAPI = new ContactsAPI();
+            contactsAPI.getContacts(this);
+        }
+
+
         @Override
         protected void onActive() {
             super.onActive();
@@ -211,47 +229,5 @@ public class ConversationRepo {
 //            new Thread(() -> contactsData.postValue(contactDao.getUserContacts(loggedUser.getId()))).start();
         }
     }
-
-
-    public void AddData() {
-
-
-        //create conversation from nadav to pelegs29
-        List<Content> lstContent1 = new ArrayList<>();
-        lstContent1.add(new Content("nadavyk", "pelegs29", "hi", "17:50", true));
-        lstContent1.add(new Content("nadavyk", "pelegs29", "What up!", "17:51", false));
-        lstContent1.add(new Content("nadavyk", "pelegs29", "fine How are You?", "17:52", true));
-
-
-        //create conversation from nadavyk to itamarb
-        List<Content> lstContent3 = new ArrayList<>();
-        lstContent3.add(new Content("nadavyk", "itamarb", "hi its itamarb", "17:50", false));
-        lstContent3.add(new Content("nadavyk", "itamarb", "What up!", "17:51", true));
-        lstContent3.add(new Content("nadavyk", "itamarb", "fine How are You?", "17:52", false));
-
-
-        //contactDao.deleteAll();
-        addContactToLocal();
-
-        for (Content content : lstContent1) {
-            contentDao.insert(content);
-        }
-
-        for (Content content : lstContent3) {
-            contentDao.insert(content);
-        }
-
-    }
-
-    //for check add hard data for the local db
-    public void addContactToLocal() {
-        //create nadavyk User
-        Contact pelegConNadav = new Contact("pelegs29", "pelegs29", "5555", "hi", "16:55", loggedUser.getId());
-        Contact itamarConNadav = new Contact("itamarb", "itamarb", "5555", "hi its itamarb", "16:55", loggedUser.getId());
-
-        contactDao.insert(pelegConNadav);
-        contactDao.insert(itamarConNadav);
-    }
-
 
 }

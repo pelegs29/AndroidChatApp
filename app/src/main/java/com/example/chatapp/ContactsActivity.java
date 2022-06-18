@@ -2,6 +2,7 @@ package com.example.chatapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -35,6 +36,12 @@ public class ContactsActivity extends AppCompatActivity {
 
         viewContacts.setUpContacts();
 
+        firebaseService.setContactsViewModel(viewContacts);
+
+        //set the name of the user on the top of the page
+        TextView userNameTag = findViewById(R.id.userNameConWin);
+        userNameTag.setText(viewContacts.getUserLogged().getName());
+
         //the convList - hold the content in the win
         RecyclerView contactList = findViewById(R.id.contact_rcContact);
 
@@ -42,7 +49,7 @@ public class ContactsActivity extends AppCompatActivity {
         contactList.setAdapter(adapter); // connect the adapter to the RecyclerView
         contactList.setLayoutManager(new LinearLayoutManager(this)); // make the item in the RecyclerView appear in liner order
         List<Contact> sortListContacts = viewContacts.get().getValue();
-        Collections.sort(sortListContacts, Collections.reverseOrder());
+        //Collections.sort(sortListContacts);
 //        viewContacts.getCon().setValue(sortListContacts);
         adapter.setLstContent(sortListContacts);
         // ls - contain the update Content List
