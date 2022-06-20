@@ -54,11 +54,18 @@ public class ContactsActivity extends AppCompatActivity {
         adapter.setLstContent(sortListContacts);
         // ls - contain the update Content List
         viewContacts.get().observe(this, ls -> adapter.setLstContent(ls));
-        // set the function when the user click on item in the list
+
+        // set the function when the user click on btn
         contactList.setClickable(true);
         FloatingActionButton addBtn = findViewById(R.id.contacts_add);
         addBtn.setOnClickListener(v -> {
             Intent i = new Intent(this, AddNewContacts.class);
+            startActivity(i);
+        });
+
+        FloatingActionButton settingBtn = findViewById(R.id.Setting_Page);
+        settingBtn.setOnClickListener(v -> {
+            Intent i = new Intent(this, SettingsPageActivity.class);
             startActivity(i);
         });
 

@@ -83,8 +83,11 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
     }
 
     //determine how the date of the message will be display
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public  String parsJasonToTime(String jsTime){
+        if(jsTime == null){
+            //in case this is a new Contact that has no messages
+            return "";
+        }
         String year = jsTime.substring(2,4);
         String month = jsTime.substring(5,7);
         String day = jsTime.substring(8,10);

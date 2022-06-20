@@ -115,7 +115,7 @@ public class ConversationRepo {
     }
 
     //update the last messege and time of the last mess in the contact
-    public void updateContact(Content content){
+    public void updateContact(Content content) {
         Contact curr = getContact(content.getTo());
         curr.setLast(content.getContent());
         curr.setLastdate(content.getCreated());
@@ -141,14 +141,20 @@ public class ConversationRepo {
     }
 
     public void addContact(Contact contact) {
+
+        if (getContact(contact.getId()) != null) {
+            //the contact is already in my contacts
+            return;
+        }
         this.contactDao.insert(contact);
         loggedUser.getContacts().add(contact);
+        contactsData.getValue().add(contact);
 
         //add to the server
         ContactsAPI contactsAPI = new ContactsAPI();
         contactsAPI.postContact(contact);
 
-        contactsData.setValue(loggedUser.getContacts());
+        contactsData.setValue(contactsData.getValue());
 
         //send invitations to my server & friend's server
         sendInvitations(contact);
@@ -177,7 +183,7 @@ public class ConversationRepo {
         return null;
     }
 
-    public void updateContclsFromServer(){
+    public void updateContclsFromServer() {
         contactsData.getFromserver();
     }
 
@@ -216,7 +222,7 @@ public class ConversationRepo {
             contactsAPI.getContacts(this);
         }
 
-        public void getFromserver(){
+        public void getFromserver() {
             ContactsAPI contactsAPI = new ContactsAPI();
             contactsAPI.getContacts(this);
         }

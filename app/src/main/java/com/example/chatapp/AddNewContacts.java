@@ -42,8 +42,10 @@ public class AddNewContacts extends AppCompatActivity {
             repo.addContact(contact);
 
             //back to the contact page
-            Intent intent = new Intent(this,ContactsActivity.class);
-            startActivities(new Intent[]{intent});
+            finish(); //get back to the contact list
+
+//            Intent intent = new Intent(this,ContactsActivity.class);
+//            startActivity(intent);
         } );
 
 

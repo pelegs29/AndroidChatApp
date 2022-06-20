@@ -15,4 +15,5 @@
     <string name="login_usernameIconDesc">username_icon</string>
     <string name="login_passwordIconDesc">password_icon</string>
     <string name="conv_inputHint">Write you Message Here</string>
+    <string name="sendBtn_text">send</string>
 </resources>
