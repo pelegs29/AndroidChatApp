@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/convRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ConversationActivity">
@@ -67,8 +68,7 @@
         android:layout_below="@+id/topConv"
         android:background="#1AAAAAAA"
         android:padding="5dp"
-        tools:listitem="@layout/friend_message_layout"
-        tools:text="here will be the chat">
+        tools:listitem="@layout/friend_message_layout">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -90,9 +90,11 @@
             android:layout_weight="80"
             android:background="@drawable/message_box_background"
             android:hint="@string/conv_inputHint"
+            android:imeOptions="actionGo"
             android:inputType="text"
             android:paddingStart="10dp"
-            android:paddingEnd="10dp">
+            android:paddingEnd="10dp"
+            android:layout_marginBottom="1dp">
 
         </EditText>
 
@@ -102,8 +104,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="20"
             android:contentDescription="@string/app_name"
-            android:minWidth="32dp"
-            android:src="@android:drawable/ic_menu_send" />
+            android:minWidth="60dp"
+            android:minHeight="40dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/roundcorners"
+            android:src="@android:drawable/ic_menu_send"
+            />
 
     </LinearLayout>
 

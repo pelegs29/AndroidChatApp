@@ -15,7 +15,7 @@ import com.example.chatapp.viewmodels.ConversationViewModel;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import java.util.List;
+import java.util.Objects;
 
 public class firebaseService extends FirebaseMessagingService {
     static ConversationViewModel conversationViewModel;
@@ -36,21 +36,31 @@ public class firebaseService extends FirebaseMessagingService {
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
             notificationManagerCompat.notify(1, builder.build());
 
-            Content content = new Content(ConversationRepo.getLoggedUser().getId(), remoteMessage.getData().get("fromUser"), remoteMessage.getNotification().getBody(), remoteMessage.getData().get("time"), false);
+            Content content = new Content(
+                    ConversationRepo.getLoggedUser().getId(),
+                    remoteMessage.getData().get("fromUser"),
+                    remoteMessage.getNotification().getBody(),
+                    remoteMessage.getData().get("time"), false);
 
             //TODO
             //need to fix!1
             if(content.getTo().equals(content.getFrom())){
                 return;
             }
-
-            if (conversationViewModel != null) {
-                //update the conversation view model only when the conversation is active
-                conversationViewModel.addContent2(content);
-            }else{
-                //the user is the contacts page
-                contactsViewModel.updateContat(content);
+            //type == 0 --> new message received
+            if (Objects.equals(remoteMessage.getData().get("type"), "0")) {
+                if (conversationViewModel != null) {
+                    //update the conversation view model only when the conversation is active
+                    conversationViewModel.addContent2(content);
+                }else{
+                    //the user is the contacts page
+                    contactsViewModel.updateContat(content);
+                }
+                // type == 1 --> user has been added
+            } else {
+                //nadav
             }
+
         }
     }
 

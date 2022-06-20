@@ -3,6 +3,7 @@ package com.example.chatapp;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,6 +60,14 @@ public class LoginActivity extends AppCompatActivity {
         binding.loginTvSignup.setOnClickListener(view -> {
             Intent i = new Intent(this, SignupActivity.class);
             startActivity(i);
+        });
+
+        binding.loginEtPassword.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_GO) {
+                binding.loginBtnLogin.callOnClick();
+                return true;
+            }
+            return false;
         });
     }
 
