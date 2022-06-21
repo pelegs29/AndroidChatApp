@@ -32,7 +32,7 @@
         </service>
 
         <activity
-            android:name=".AddNewContacts"
+            android:name=".AddNewContactsActivity"
             android:exported="false" />
         <activity
             android:name=".SignupActivity"

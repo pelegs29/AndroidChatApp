@@ -2,6 +2,7 @@ package com.example.chatapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.example.chatapp.repositories.ConversationRepo;
 import com.example.chatapp.viewmodels.ContactsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.gson.Gson;
 
 import java.util.Collections;
 import java.util.List;
@@ -59,7 +61,10 @@ public class ContactsActivity extends AppCompatActivity {
         contactList.setClickable(true);
         FloatingActionButton addBtn = findViewById(R.id.contacts_add);
         addBtn.setOnClickListener(v -> {
-            Intent i = new Intent(this, AddNewContacts.class);
+            Intent i = new Intent(this, AddNewContactsActivity.class);
+//            Gson gson = new Gson();
+//            String contactsJson = gson.toJson(viewContacts);
+//            i.putExtra("contactsList",contactsJson );
             startActivity(i);
         });
 

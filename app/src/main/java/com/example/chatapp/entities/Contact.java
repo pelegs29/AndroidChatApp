@@ -1,10 +1,12 @@
 package com.example.chatapp.entities;
 
+import android.os.Parcelable;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class Contact implements Comparable<Contact> {
+public class Contact implements Comparable<Contact>  {
     public void setDataId(int dataId) {
         DataId = dataId;
     }

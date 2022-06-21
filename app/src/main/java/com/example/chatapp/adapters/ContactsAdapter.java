@@ -39,8 +39,13 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
     public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
         if (lstContacts!= null){
             final Contact  current = lstContacts.get(position);
-            holder.lastMess.setText(current.getLast());
             holder.name.setText(current.getName());
+            if(current.getLast()== null){
+                //this is a new contacts that has no last message
+                holder.lastMess.setText("");
+            }else {
+                holder.lastMess.setText(current.getLast());
+            }
             holder.time.setText(parsJasonToTime(current.getLastdate()));
 
             holder.itemView.setOnClickListener(v -> {
@@ -84,7 +89,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
 
     //determine how the date of the message will be display
     public  String parsJasonToTime(String jsTime){
-        if(jsTime == null){
+        if(jsTime == null ){
             //in case this is a new Contact that has no messages
             return "";
         }
