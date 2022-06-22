@@ -2,7 +2,6 @@ package com.example.chatapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +17,6 @@ import com.example.chatapp.repositories.ConversationRepo;
 import com.example.chatapp.viewmodels.ContactsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.gson.Gson;
 
 import java.util.Collections;
 import java.util.List;

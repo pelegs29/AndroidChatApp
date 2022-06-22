@@ -1,21 +1,16 @@
 package com.example.chatapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.chatapp.entities.Contact;
-import com.example.chatapp.entities.Conversation;
 import com.example.chatapp.repositories.ConversationRepo;
 import com.example.chatapp.viewmodels.ContactsViewModel;
-import com.google.gson.Gson;
 
-import java.sql.Time;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AddNewContactsActivity extends AppCompatActivity {
@@ -29,13 +24,13 @@ public class AddNewContactsActivity extends AppCompatActivity {
 
         ConversationRepo repo = new ConversationRepo();
 
-
-        EditText name = findViewById(R.id.addUser_username);
+        EditText username = findViewById(R.id.addUser_username);
         EditText nickName = findViewById(R.id.addUser_nickname);
         EditText server = findViewById(R.id.addUser_server);
         EditText pic = findViewById(R.id.addUser_Pic);
 
         Button btnSend = findViewById(R.id.addUser_sendbtn);
+
 
         //when the user click on the button
         btnSend.setOnClickListener(x -> {
@@ -46,7 +41,7 @@ public class AddNewContactsActivity extends AppCompatActivity {
                 return;
             }
             //create a new contact and add
-            Contact contact = new Contact(name.getText().toString(), nickName.getText().toString(), server.getText().toString(), null, null, repo.getLoggedUser().getId());
+            Contact contact = new Contact(username.getText().toString(), nickName.getText().toString(), server.getText().toString(), null, null, repo.getLoggedUser().getId());
             repo.addContact(contact);
 
             //back to the contact page
