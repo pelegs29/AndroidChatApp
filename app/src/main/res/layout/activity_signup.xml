@@ -176,9 +176,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"
-                    android:backgroundTint="@color/white"
+                    android:backgroundTint="#CDD5DD"
                     android:ems="15"
                     android:text="@string/pick_a_picture_for_your_account"
+                    android:textAllCaps="false"
                     android:textColor="@color/black" />
 
                 <Button

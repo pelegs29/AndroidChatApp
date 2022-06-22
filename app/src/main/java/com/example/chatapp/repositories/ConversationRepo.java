@@ -1,5 +1,7 @@
 package com.example.chatapp.repositories;
 
+import android.graphics.Bitmap;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
@@ -12,6 +14,7 @@ import com.example.chatapp.api.MessagesAPI;
 import com.example.chatapp.entities.Contact;
 import com.example.chatapp.entities.Content;
 import com.example.chatapp.entities.Invitation;
+import com.example.chatapp.entities.ProfilePic;
 import com.example.chatapp.entities.Transfer;
 import com.example.chatapp.entities.User;
 
@@ -237,6 +240,22 @@ public class ConversationRepo {
             super.onActive();
 
 //            new Thread(() -> contactsData.postValue(contactDao.getUserContacts(loggedUser.getId()))).start();
+        }
+    }
+
+    public static void uploadProfilePic(String id, Bitmap pic) {
+        ProfilePicDB profileDB = Room.databaseBuilder(ChatApp.context, ProfilePicDB.class, "ProfileDB").allowMainThreadQueries().build();
+        ProfilePicDao profilePicDao = profileDB.Dao();
+        profilePicDao.insert(new ProfilePic(id, pic));
+    }
+
+    public static Bitmap GetBitmap(String id) {
+
+        ProfilePic bitmap = profilePicDao.get(id);
+        if (bitmap == null) {
+            return null;
+        } else {
+            return bitmap.getImageBitMap();
         }
     }
 

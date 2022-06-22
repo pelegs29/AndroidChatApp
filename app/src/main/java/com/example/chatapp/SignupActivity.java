@@ -2,7 +2,9 @@ package com.example.chatapp;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -142,6 +144,7 @@ public class SignupActivity extends AppCompatActivity {
                 String fullname = binding.signupEtFullName.getText().toString();
                 String username = binding.signupEtUsername.getText().toString();
                 String password = binding.signupEtPassword.getText().toString();
+                ConversationRepo.uploadProfilePic(username,bitmap);
                 User user = new User(fullname, username, password);
                 usersAPI.addUser(user, this);
             }
@@ -156,7 +159,6 @@ public class SignupActivity extends AppCompatActivity {
             }
             String message = "Welcome, " + name;
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-            ConversationRepo.
         });
         Intent i = new Intent(this, ContactsActivity.class);
         startActivity(i);
@@ -275,7 +277,8 @@ public class SignupActivity extends AppCompatActivity {
                     }
                 }
             }
-
+            //set the signupBtnPickImage color tint to light green
+            binding.signupBtnPickImage.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF66BB6A")));
         }
     }
 }

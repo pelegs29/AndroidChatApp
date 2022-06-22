@@ -17,5 +17,5 @@
     <string name="login_passwordIconDesc">password_icon</string>
     <string name="conv_inputHint">Write you Message Here</string>
     <string name="sendBtn_text">send</string>
-    <string name="pick_a_picture_for_your_account">Pick a Profile Picture</string>
+    <string name="pick_a_picture_for_your_account">Upload profile picture</string>
 </resources>

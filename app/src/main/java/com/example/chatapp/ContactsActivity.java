@@ -1,7 +1,9 @@
 package com.example.chatapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,6 +44,10 @@ public class ContactsActivity extends AppCompatActivity {
         TextView userNameTag = findViewById(R.id.userNameConWin);
         userNameTag.setText(viewContacts.getUserLogged().getName());
 
+        ImageView ProfilePic = findViewById(R.id.profilePicConWinMain);
+
+        setProfilePic(ProfilePic,ConversationRepo.getLoggedUser().getId());
+
         //the convList - hold the content in the win
         RecyclerView contactList = findViewById(R.id.contact_rcContact);
 
@@ -49,11 +55,11 @@ public class ContactsActivity extends AppCompatActivity {
         contactList.setAdapter(adapter); // connect the adapter to the RecyclerView
         contactList.setLayoutManager(new LinearLayoutManager(this)); // make the item in the RecyclerView appear in liner order
         List<Contact> sortListContacts = viewContacts.get().getValue();
-//        viewContacts.getCon().setValue(sortListContacts);
         adapter.setLstContent(sortListContacts);
+
         // ls - contain the update Content List
-        viewContacts.get().observe(this, ls ->{
-            Collections.sort(ls,Collections.reverseOrder());
+        viewContacts.get().observe(this, ls -> {
+            Collections.sort(ls, Collections.reverseOrder());
             adapter.setLstContent(ls);
         });
 
@@ -89,12 +95,19 @@ public class ContactsActivity extends AppCompatActivity {
         super.onResume();
         //set the contact list order by the contact with the last message on the top
         List<Contact> sortListContacts = viewContacts.get().getValue();
-        Collections.sort(sortListContacts,Collections.reverseOrder());
+        Collections.sort(sortListContacts, Collections.reverseOrder());
         adapter.setLstContent(sortListContacts);
-
-
     }
 
+    public void setProfilePic(ImageView profilePic, String id) {
+        //get the profile pic from the local database
+        Bitmap image = ConversationRepo.GetBitmap(id);
+        if(image != null) {
+            profilePic.setImageBitmap(image);
+        }
+        //the default profile pic -> its already in xml
+
+    }
 
 
 }
