@@ -49,20 +49,19 @@ public class ContactsActivity extends AppCompatActivity {
         contactList.setAdapter(adapter); // connect the adapter to the RecyclerView
         contactList.setLayoutManager(new LinearLayoutManager(this)); // make the item in the RecyclerView appear in liner order
         List<Contact> sortListContacts = viewContacts.get().getValue();
-        Collections.sort(sortListContacts,Collections.reverseOrder());
 //        viewContacts.getCon().setValue(sortListContacts);
         adapter.setLstContent(sortListContacts);
         // ls - contain the update Content List
-        viewContacts.get().observe(this, ls -> adapter.setLstContent(ls));
+        viewContacts.get().observe(this, ls ->{
+            Collections.sort(ls,Collections.reverseOrder());
+            adapter.setLstContent(ls);
+        });
 
         // set the function when the user click on btn
         contactList.setClickable(true);
         FloatingActionButton addBtn = findViewById(R.id.contacts_add);
         addBtn.setOnClickListener(v -> {
             Intent i = new Intent(this, AddNewContactsActivity.class);
-//            Gson gson = new Gson();
-//            String contactsJson = gson.toJson(viewContacts);
-//            i.putExtra("contactsList",contactsJson );
             startActivity(i);
         });
 

@@ -124,7 +124,7 @@ public class ConversationRepo {
 
     public void updateContactList(Content content) {
         updateContact(content);
-        Collections.sort(contactsData.getValue(), Collections.reverseOrder());
+//        Collections.sort(contactsData.getValue(), Collections.reverseOrder());
         contactsData.postValue(contactsData.getValue());
     }
 
@@ -222,6 +222,11 @@ public class ConversationRepo {
         }
 
         public void getFromServer() {
+            ContactsAPI contactsAPI = new ContactsAPI();
+            contactsAPI.getContacts(this);
+        }
+
+        public  void updateDataFromServer(){
             ContactsAPI contactsAPI = new ContactsAPI();
             contactsAPI.getContacts(this);
         }

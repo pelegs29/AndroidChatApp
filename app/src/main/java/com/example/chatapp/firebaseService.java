@@ -50,12 +50,10 @@ public class firebaseService extends FirebaseMessagingService {
                     conversationViewModel.addContent2(content);
                 } else {
                     //the user is the contacts page
-                    contactsViewModel.updateContat(content);
+                    contactsViewModel.updateFromServer();
                 }
-                // type == 1 --> user has been added
-            } else {
-                //nadav
             }
+                // type == 1 --> user has been added
 
         }
     }

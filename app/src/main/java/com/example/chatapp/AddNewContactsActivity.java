@@ -43,10 +43,8 @@ public class AddNewContactsActivity extends AppCompatActivity {
             //create a new contact and add
             Contact contact = new Contact(username.getText().toString(), nickName.getText().toString(), server.getText().toString(), null, null, repo.getLoggedUser().getId());
             repo.addContact(contact);
-
             //back to the contact page
             finish(); //get back to the contact list
-
         });
     }
 
