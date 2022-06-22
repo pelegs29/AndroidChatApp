@@ -42,17 +42,13 @@ public class firebaseService extends FirebaseMessagingService {
                     remoteMessage.getNotification().getBody(),
                     remoteMessage.getData().get("time"), false);
 
-            //TODO
-            //need to fix!1
-            if(content.getTo().equals(content.getFrom())){
-                return;
-            }
+
             //type == 0 --> new message received
             if (Objects.equals(remoteMessage.getData().get("type"), "0")) {
                 if (conversationViewModel != null) {
                     //update the conversation view model only when the conversation is active
                     conversationViewModel.addContent2(content);
-                }else{
+                } else {
                     //the user is the contacts page
                     contactsViewModel.updateContat(content);
                 }
@@ -90,7 +86,6 @@ public class firebaseService extends FirebaseMessagingService {
     public static void setConversationViewModel(ConversationViewModel conversationViewModel) {
         firebaseService.conversationViewModel = conversationViewModel;
     }
-
 
 
 }

@@ -168,7 +168,7 @@ public class ConversationRepo {
 
         //sending invitation to friend's server from me
         Invitation inviteFriend = new Invitation(loggedUser.getId(),
-                contact.getId(), ChatApp.context.getString(R.string.BaseUrl), null);
+                contact.getId(), ChatApp.context.getString(R.string.StrippedUrl), null);
         CrossServerAPI crossServerAPI1 = new CrossServerAPI(contact.getServer());
         crossServerAPI1.invitation(inviteFriend);
     }
@@ -183,7 +183,7 @@ public class ConversationRepo {
     }
 
     public void updateContclsFromServer() {
-        contactsData.getFromserver();
+        contactsData.getFromServer();
     }
 
 
@@ -221,7 +221,7 @@ public class ConversationRepo {
             contactsAPI.getContacts(this);
         }
 
-        public void getFromserver() {
+        public void getFromServer() {
             ContactsAPI contactsAPI = new ContactsAPI();
             contactsAPI.getContacts(this);
         }

@@ -35,7 +35,7 @@ public class AddNewContactsActivity extends AppCompatActivity {
         //when the user click on the button
         btnSend.setOnClickListener(x -> {
             String time = DateFormat.getDateTimeInstance().format(new Date());
-            if (checkServer(server.getText().toString())) {
+            if (!checkServer(server.getText().toString())) {
                 server.setError("Invalid server - the correct format is: localhost:XXXX");
                 server.requestFocus();
                 return;
