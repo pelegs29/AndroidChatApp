@@ -51,7 +51,7 @@ public class ContactsActivity extends AppCompatActivity {
         contactList.setAdapter(adapter); // connect the adapter to the RecyclerView
         contactList.setLayoutManager(new LinearLayoutManager(this)); // make the item in the RecyclerView appear in liner order
         List<Contact> sortListContacts = viewContacts.get().getValue();
-        //Collections.sort(sortListContacts);
+        Collections.sort(sortListContacts,Collections.reverseOrder());
 //        viewContacts.getCon().setValue(sortListContacts);
         adapter.setLstContent(sortListContacts);
         // ls - contain the update Content List
@@ -74,6 +74,7 @@ public class ContactsActivity extends AppCompatActivity {
             startActivity(i);
         });
 
+
         //contact to fireBase
         //get the token of the firebase of my app
         FirebaseInstanceId.getInstance().getInstanceId()
@@ -91,7 +92,12 @@ public class ContactsActivity extends AppCompatActivity {
         super.onResume();
         //set the contact list order by the contact with the last message on the top
         List<Contact> sortListContacts = viewContacts.get().getValue();
-        Collections.sort(sortListContacts, Collections.reverseOrder());
+        Collections.sort(sortListContacts,Collections.reverseOrder());
         adapter.setLstContent(sortListContacts);
+
+
     }
+
+
+
 }

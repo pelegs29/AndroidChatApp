@@ -28,34 +28,43 @@ public class AddNewContactsActivity extends AppCompatActivity {
 
 
         ConversationRepo repo = new ConversationRepo();
-        //the item in the page
-//
-//        Gson gson = new Gson();
-//        String contactsListJson = getIntent().getStringExtra("contactsList");
-//         contactsViewModel = gson.fromJson(contactsListJson, ContactsViewModel.class);
-
 
 
         EditText name = findViewById(R.id.addUser_username);
-        EditText nickName = findViewById(R.id.addUser_username);
+        EditText nickName = findViewById(R.id.addUser_nickname);
         EditText server = findViewById(R.id.addUser_server);
         EditText pic = findViewById(R.id.addUser_Pic);
 
         Button btnSend = findViewById(R.id.addUser_sendbtn);
 
-        btnSend.setOnClickListener(x->{
-
+        //when the user click on the button
+        btnSend.setOnClickListener(x -> {
             String time = DateFormat.getDateTimeInstance().format(new Date());
-
+            if (checkServer(server.getText().toString())) {
+                server.setError("Invalid server - the correct format is: localhost:XXXX");
+                server.requestFocus();
+                return;
+            }
             //create a new contact and add
-            Contact contact = new Contact(name.getText().toString(),nickName.getText().toString(),server.getText().toString(),null,null,repo.getLoggedUser().getId());
+            Contact contact = new Contact(name.getText().toString(), nickName.getText().toString(), server.getText().toString(), null, null, repo.getLoggedUser().getId());
             repo.addContact(contact);
 
             //back to the contact page
             finish(); //get back to the contact list
 
-        } );
-
-
+        });
     }
+
+    //function that check if the server string is start with localhost:  followed by only 4 digits using regex
+    //if so, return true
+    //else return false
+    public boolean checkServer(String server) {
+        String regex = "^localhost:\\d{4}$";
+        if (server.matches(regex)) {
+            return true;
+        }
+        return false;
+    }
+
+
 }
