@@ -9,7 +9,7 @@
     <string name="signup_etRePassword">Re-Enter Password</string>
     <string name="signup_tvLogin">Already have an account? Log In</string>
     <string name="BaseUrl">http://10.0.2.2:5125/api/</string>
-    <string name="StrippedUrl">10.0.2.2:5125</string>
+    <string name="localHost">localhost:5125</string>
     <string name="signup_btnSignup">Sign Up</string>
     <string name="login_backgroundDesc">background</string>
     <string name="login_logoDesc">logo</string>

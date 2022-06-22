@@ -15,7 +15,6 @@ import com.example.chatapp.entities.Invitation;
 import com.example.chatapp.entities.Transfer;
 import com.example.chatapp.entities.User;
 
-import java.util.Collections;
 import java.util.List;
 
 public class ConversationRepo {
@@ -168,7 +167,7 @@ public class ConversationRepo {
 
         //sending invitation to friend's server from me
         Invitation inviteFriend = new Invitation(loggedUser.getId(),
-                contact.getId(), ChatApp.context.getString(R.string.StrippedUrl), null);
+                contact.getId(), ChatApp.context.getString(R.string.localHost), null);
         CrossServerAPI crossServerAPI1 = new CrossServerAPI(contact.getServer());
         crossServerAPI1.invitation(inviteFriend);
     }
@@ -182,8 +181,8 @@ public class ConversationRepo {
         return null;
     }
 
-    public void updateContclsFromServer() {
-        contactsData.getFromServer();
+    public void updateContactsFromServer(Contact contact) {
+        contactsData.getFromServer(contact);
     }
 
 
@@ -221,14 +220,10 @@ public class ConversationRepo {
             contactsAPI.getContacts(this);
         }
 
-        public void getFromServer() {
-            ContactsAPI contactsAPI = new ContactsAPI();
-            contactsAPI.getContacts(this);
-        }
-
-        public  void updateDataFromServer(){
-            ContactsAPI contactsAPI = new ContactsAPI();
-            contactsAPI.getContacts(this);
+        public void getFromServer(Contact contact) {
+            contactDao.insert(contact);
+            getValue().add(contact);
+            postValue(getValue());
         }
 
 

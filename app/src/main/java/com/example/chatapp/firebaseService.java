@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.chatapp.entities.Contact;
 import com.example.chatapp.entities.Content;
 import com.example.chatapp.repositories.ConversationRepo;
 import com.example.chatapp.viewmodels.ContactsViewModel;
@@ -42,19 +43,29 @@ public class firebaseService extends FirebaseMessagingService {
                     remoteMessage.getNotification().getBody(),
                     remoteMessage.getData().get("time"), false);
 
+            Contact contact = new Contact(
+                    remoteMessage.getData().get("fromUser"),
+                    remoteMessage.getData().get("fromUser"),
+                    remoteMessage.getData().get("server"),
+                    null, null, ConversationRepo.getLoggedUser().getId());
 
-            //type == 0 --> new message received
+
             if (Objects.equals(remoteMessage.getData().get("type"), "0")) {
+                //type == 0 --> new message received
                 if (conversationViewModel != null) {
                     //update the conversation view model only when the conversation is active
                     conversationViewModel.addContent2(content);
                 } else {
                     //the user is the contacts page
-                    contactsViewModel.updateFromServer();
+                    contactsViewModel.updateContact(content);
+                }
+            } else {
+                // type == 1 --> user has been added
+                if (conversationViewModel == null) {
+                    //update the contact list only when no conversion is active
+                    contactsViewModel.updateFromServer(contact);
                 }
             }
-                // type == 1 --> user has been added
-
         }
     }
 
