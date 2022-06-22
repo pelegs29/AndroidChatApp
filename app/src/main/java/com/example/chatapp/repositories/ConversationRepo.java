@@ -22,6 +22,8 @@ public class ConversationRepo {
 
     private ContactDao contactDao;
     private ContentDao contentDao;
+    static ProfilePicDao profilePicDao;
+
     static User loggedUser;
     static String token;
     private ConvData convData;
@@ -48,6 +50,10 @@ public class ConversationRepo {
         //create contacts local db
         ContactDB contactDB = Room.databaseBuilder(ChatApp.context, ContactDB.class, "ContactDB2").allowMainThreadQueries().build();
         this.contactDao = contactDB.Dao();
+
+        //create contacts local profile pic db
+        ProfilePicDB profileDB = Room.databaseBuilder(ChatApp.context, ProfilePicDB.class, "ProfileDB").allowMainThreadQueries().build();
+        this.profilePicDao = profileDB.Dao();
 
         convData = new ConvData();
         contactsData = new ContactsData();
@@ -224,13 +230,8 @@ public class ConversationRepo {
         public void getFromserver() {
             ContactsAPI contactsAPI = new ContactsAPI();
             contactsAPI.getContacts(this);
+            setValue(contactsData.getValue());
         }
-
-        public  void updateDataFromServer(){
-            ContactsAPI contactsAPI = new ContactsAPI();
-            contactsAPI.getContacts(this);
-        }
-
 
         @Override
         protected void onActive() {

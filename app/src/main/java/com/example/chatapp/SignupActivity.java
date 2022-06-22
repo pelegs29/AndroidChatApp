@@ -2,7 +2,10 @@ package com.example.chatapp;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -15,12 +18,16 @@ import com.example.chatapp.databinding.ActivitySignupBinding;
 import com.example.chatapp.entities.User;
 import com.example.chatapp.repositories.ConversationRepo;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class SignupActivity extends AppCompatActivity {
 
     private ActivitySignupBinding binding;
     boolean isAllFieldsChecked = false;
     private AlertDialog.Builder alertBuilder;
     private UsersAPI usersAPI;
+    Bitmap bitmap;
 
     public void showAlert() {
         runOnUiThread(() -> {
@@ -34,6 +41,7 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        bitmap= null;
 
         usersAPI = new UsersAPI();
 
@@ -107,6 +115,15 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
+
+        binding.signupBtnPickImage.setOnClickListener(v -> {
+            Intent GalleryIntent = new Intent(Intent.ACTION_PICK);
+            GalleryIntent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(GalleryIntent, 1);
+
+        });
+
+
         binding.signupEtUsername.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 UsersAPI usersAPI = new UsersAPI();
@@ -139,6 +156,7 @@ public class SignupActivity extends AppCompatActivity {
             }
             String message = "Welcome, " + name;
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            ConversationRepo.
         });
         Intent i = new Intent(this, ContactsActivity.class);
         startActivity(i);
@@ -239,5 +257,25 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    //the function set when the user pick an image from the gallery
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 1) {
+                if(data != null){
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+        }
     }
 }
