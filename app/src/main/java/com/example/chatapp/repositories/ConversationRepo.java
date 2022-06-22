@@ -96,7 +96,6 @@ public class ConversationRepo {
         convData.setValue(convData.getValue());
 
         //insert to api server
-        //TODO: remove redundant call
         messagesAPI.postMessage(content.getTo(), content);
 
         //update the last messages in the contact list
@@ -127,7 +126,6 @@ public class ConversationRepo {
         curr.setLast(content.getContent());
         curr.setLastdate(content.getCreated());
         contactDao.update(curr);
-
     }
 
     public void updateContactList(Content content) {

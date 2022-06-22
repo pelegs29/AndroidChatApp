@@ -3,11 +3,11 @@ package com.example.chatapp.repositories;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.chatapp.entities.Contact;
-import com.example.chatapp.entities.Content;
 
 import java.util.List;
 
@@ -22,13 +22,13 @@ public interface ContactDao {
     @Query("SELECT * FROM contact WHERE contactOf = :contactof")
     List<Contact> getUserContacts(String contactof);
 
-//    @Query("SELECT * FROM contact WHERE 'id' = id")
+    //    @Query("SELECT * FROM contact WHERE 'id' = id")
 //    Contact getById(String idFriend);
 //
     @Insert
     void insert(Contact... contacts);
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     void update(Contact... contacts);
 
     @Delete

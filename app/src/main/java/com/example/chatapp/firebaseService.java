@@ -54,7 +54,7 @@ public class firebaseService extends FirebaseMessagingService {
                 //type == 0 --> new message received
                 if (conversationViewModel != null) {
                     //update the conversation view model only when the conversation is active
-                    conversationViewModel.addContent2(content);
+                    conversationViewModel.receiveMessage(content);
                 } else {
                     //the user is the contacts page
                     contactsViewModel.updateContact(content);

@@ -22,7 +22,7 @@ public class ConversationViewModel extends ViewModel {
     }
 
 
-    public void addContent2(Content contact) {
+    public void receiveMessage(Content contact) {
         repo.receivedMess(contact);
     }
 
