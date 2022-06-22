@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.chatapp.entities.Contact;
 import com.example.chatapp.entities.Content;
 import com.example.chatapp.repositories.ConversationRepo;
 import com.example.chatapp.viewmodels.ContactsViewModel;
@@ -42,25 +43,29 @@ public class firebaseService extends FirebaseMessagingService {
                     remoteMessage.getNotification().getBody(),
                     remoteMessage.getData().get("time"), false);
 
-            //TODO
-            //need to fix!1
-            if(content.getTo().equals(content.getFrom())){
-                return;
-            }
-            //type == 0 --> new message received
+            Contact contact = new Contact(
+                    remoteMessage.getData().get("fromUser"),
+                    remoteMessage.getData().get("fromUser"),
+                    remoteMessage.getData().get("server"),
+                    null, null, ConversationRepo.getLoggedUser().getId());
+
+
             if (Objects.equals(remoteMessage.getData().get("type"), "0")) {
+                //type == 0 --> new message received
                 if (conversationViewModel != null) {
                     //update the conversation view model only when the conversation is active
                     conversationViewModel.addContent2(content);
-                }else{
+                } else {
                     //the user is the contacts page
-                    contactsViewModel.updateContat(content);
+                    contactsViewModel.updateContact(content);
                 }
-                // type == 1 --> user has been added
             } else {
-//                contactsViewModel.get().getValue().set(contt)
+                // type == 1 --> user has been added
+                if (conversationViewModel == null) {
+                    //update the contact list only when no conversion is active
+                    contactsViewModel.updateFromServer(contact);
+                }
             }
-
         }
     }
 
@@ -90,7 +95,6 @@ public class firebaseService extends FirebaseMessagingService {
     public static void setConversationViewModel(ConversationViewModel conversationViewModel) {
         firebaseService.conversationViewModel = conversationViewModel;
     }
-
 
 
 }

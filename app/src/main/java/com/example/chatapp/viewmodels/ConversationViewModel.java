@@ -9,11 +9,11 @@ import com.example.chatapp.repositories.ConversationRepo;
 import java.util.List;
 
 public class ConversationViewModel extends ViewModel {
-    ConversationRepo repo;
+    static ConversationRepo repo;
     private LiveData<List<Content>> conversationLiveData;
 
     public ConversationViewModel() {
-        this.repo = new ConversationRepo();
+        repo = new ConversationRepo();
         this.conversationLiveData = repo.getCov();
     }
 
