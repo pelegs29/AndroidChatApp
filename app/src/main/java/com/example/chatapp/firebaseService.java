@@ -52,14 +52,12 @@ public class firebaseService extends FirebaseMessagingService {
                 if (conversationViewModel != null) {
                     //update the conversation view model only when the conversation is active
                     conversationViewModel.addContent2(content);
-                }else{
+                } else {
                     //the user is the contacts page
-                    contactsViewModel.updateContat(content);
+                    contactsViewModel.updateFromServer();
                 }
-                // type == 1 --> user has been added
-            } else {
-                //nadav
             }
+                // type == 1 --> user has been added
 
         }
     }

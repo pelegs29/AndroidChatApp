@@ -46,6 +46,15 @@ public class ContactsViewModel extends ViewModel {
         return ConversationRepo.getLoggedUser();
     }
 
+    public void updateFromServer(){
+        repo.updateContclsFromServer();
+    }
+
+
+
+
+
+
 
 //    public void addContent(String text){
 //        String time = DateFormat.getDateTimeInstance().format(new Date());

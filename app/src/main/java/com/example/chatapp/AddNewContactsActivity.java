@@ -35,7 +35,7 @@ public class AddNewContactsActivity extends AppCompatActivity {
         //when the user click on the button
         btnSend.setOnClickListener(x -> {
             String time = DateFormat.getDateTimeInstance().format(new Date());
-            if (checkServer(server.getText().toString())) {
+            if (!checkServer(server.getText().toString())) {
                 server.setError("Invalid server - the correct format is: localhost:XXXX");
                 server.requestFocus();
                 return;
@@ -43,10 +43,8 @@ public class AddNewContactsActivity extends AppCompatActivity {
             //create a new contact and add
             Contact contact = new Contact(username.getText().toString(), nickName.getText().toString(), server.getText().toString(), null, null, repo.getLoggedUser().getId());
             repo.addContact(contact);
-
             //back to the contact page
             finish(); //get back to the contact list
-
         });
     }
 
