@@ -15,7 +15,6 @@ import com.example.chatapp.entities.Invitation;
 import com.example.chatapp.entities.Transfer;
 import com.example.chatapp.entities.User;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -89,6 +88,7 @@ public class ConversationRepo {
         convData.setValue(convData.getValue());
 
         //insert to api server
+        //TODO: remove redundant call
         messagesAPI.postMessage(content.getTo(), content);
 
         //update the last messages in the contact list
@@ -150,8 +150,8 @@ public class ConversationRepo {
         contactsData.getValue().add(contact);
 
         //add to the server
-        ContactsAPI contactsAPI = new ContactsAPI();
-        contactsAPI.postContact(contact);
+//        ContactsAPI contactsAPI = new ContactsAPI();
+//        contactsAPI.postContact(contact);
 
         contactsData.setValue(contactsData.getValue());
 
