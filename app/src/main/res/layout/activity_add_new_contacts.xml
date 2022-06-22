@@ -7,125 +7,119 @@
     android:hapticFeedbackEnabled="false"
     tools:context=".AddNewContactsActivity">
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical"-->
-<!--        tools:ignore="MissingConstraints">-->
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="vertical"-->
+    <!--        tools:ignore="MissingConstraints">-->
 
 
+    <!--        <ImageView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="216dp"-->
+    <!--            android:layout_marginTop="20dp"-->
+    <!--            android:src="@drawable/chat_app_logo" />-->
+
+    <!--        <androidx.cardview.widget.CardView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginHorizontal="25dp"-->
+    <!--            android:padding="6dp"-->
+    <!--            app:cardBackgroundColor="#3E61CD">-->
+
+    <!--            <RelativeLayout-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginHorizontal="30dp"-->
+    <!--                android:backgroundTintMode="add"-->
+    <!--                android:gravity="center">-->
+
+    <!--                <TextView-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_gravity="center_vertical"-->
+    <!--                    android:padding="10dp"-->
+    <!--                    android:text="Add new Contact"-->
+    <!--                    android:textColor="#E1F5FE"-->
+    <!--                    android:textStyle="bold" />-->
+    <!--            </RelativeLayout>-->
+
+    <!--        </androidx.cardview.widget.CardView>-->
+
+    <!--        <androidx.cardview.widget.CardView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginHorizontal="30dp"-->
+    <!--            android:layout_marginBottom="10dp"-->
+    <!--            android:padding="6dp">-->
+
+    <!--            &lt;!&ndash;            the tag layout&ndash;&gt;-->
+    <!--            <RelativeLayout-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:orientation="horizontal"-->
+    <!--                android:padding="8dp">-->
 
 
-<!--        <ImageView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="216dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:src="@drawable/chat_app_logo" />-->
-
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginHorizontal="25dp"-->
-<!--            android:padding="6dp"-->
-<!--            app:cardBackgroundColor="#3E61CD">-->
-
-<!--            <RelativeLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginHorizontal="30dp"-->
-<!--                android:backgroundTintMode="add"-->
-<!--                android:gravity="center">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center_vertical"-->
-<!--                    android:padding="10dp"-->
-<!--                    android:text="Add new Contact"-->
-<!--                    android:textColor="#E1F5FE"-->
-<!--                    android:textStyle="bold" />-->
-<!--            </RelativeLayout>-->
-
-<!--        </androidx.cardview.widget.CardView>-->
-
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginHorizontal="30dp"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:padding="6dp">-->
-
-<!--            &lt;!&ndash;            the tag layout&ndash;&gt;-->
-<!--            <RelativeLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:padding="8dp">-->
+    <!--                <LinearLayout-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_weight="1"-->
+    <!--                    android:orientation="vertical">-->
 
 
+    <!--                        &lt;!&ndash;                the user Name&ndash;&gt;-->
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:orientation="vertical">-->
-
-
-
-<!--                        &lt;!&ndash;                the user Name&ndash;&gt;-->
-
-<!--                        <EditText-->
-<!--                            android:id="@+id/addUser_username"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:hint=" UserName" />-->
+    <!--                        <EditText-->
+    <!--                            android:id="@+id/addUser_username"-->
+    <!--                            android:layout_width="match_parent"-->
+    <!--                            android:layout_height="wrap_content"-->
+    <!--                            android:hint=" UserName" />-->
 
 
+    <!--                    &lt;!&ndash;                the nickname&ndash;&gt;-->
 
-<!--                    &lt;!&ndash;                the nickname&ndash;&gt;-->
+    <!--                    <EditText-->
+    <!--                        android:id="@+id/addUser_nickname"-->
+    <!--                        android:layout_width="match_parent"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:hint=" Nick Name" />-->
 
-<!--                    <EditText-->
-<!--                        android:id="@+id/addUser_nickname"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:hint=" Nick Name" />-->
+    <!--                    &lt;!&ndash;the server&ndash;&gt;-->
 
-<!--                    &lt;!&ndash;the server&ndash;&gt;-->
+    <!--                    <EditText-->
+    <!--                        android:id="@+id/addUser_server"-->
+    <!--                        android:layout_width="match_parent"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:hint=" Contact Server" />-->
 
-<!--                    <EditText-->
-<!--                        android:id="@+id/addUser_server"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:hint=" Contact Server" />-->
+    <!--                    &lt;!&ndash;the pic&ndash;&gt;-->
 
-<!--                    &lt;!&ndash;the pic&ndash;&gt;-->
+    <!--                    <EditText-->
+    <!--                        android:id="@+id/addUser_Pic"-->
+    <!--                        android:layout_width="match_parent"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:hint=" Pic" />-->
 
-<!--                    <EditText-->
-<!--                        android:id="@+id/addUser_Pic"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:hint=" Pic" />-->
-
-<!--                </LinearLayout>-->
+    <!--                </LinearLayout>-->
 
 
-<!--            </RelativeLayout>-->
+    <!--            </RelativeLayout>-->
 
-<!--        </androidx.cardview.widget.CardView>-->
+    <!--        </androidx.cardview.widget.CardView>-->
 
-<!--        &lt;!&ndash;                the send Btn&ndash;&gt;-->
+    <!--        &lt;!&ndash;                the send Btn&ndash;&gt;-->
 
-<!--        <Button-->
-<!--            android:id="@+id/addUser_sendbtn"-->
-<!--            android:layout_width="match_parent"-->
-<!--            app:cardCornerRadius="18dp"-->
-<!--            app:cardElevation="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginHorizontal="30dp"-->
-<!--            android:text="send" />-->
+    <!--        <Button-->
+    <!--            android:id="@+id/addUser_sendbtn"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            app:cardCornerRadius="18dp"-->
+    <!--            app:cardElevation="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginHorizontal="30dp"-->
+    <!--            android:text="send" />-->
 
-<!--    </LinearLayout>-->
-
+    <!--    </LinearLayout>-->
 
 
     <ImageView
@@ -153,7 +147,7 @@
         tools:ignore="MissingConstraints">
 
         <LinearLayout
-            android:id="@+id/login_llCard"
+            android:id="@+id/AddUser_llCard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -165,7 +159,7 @@
 
 
             <LinearLayout
-                android:id="@+id/login_llLogo"
+                android:id="@+id/addUser_llLogo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -174,7 +168,7 @@
 
 
                 <ImageView
-                    android:id="@+id/login_logo"
+                    android:id="@+id/addUser_logo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
@@ -183,10 +177,10 @@
                     android:maxHeight="80dp"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/addfriendicon" />
+                    android:src="@drawable/addfriendiconnew" />
 
                 <TextView
-                    android:id="@+id/login_logoText"
+                    android:id="@+id/addUser_logoText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -196,7 +190,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/login_llMain"
+                android:id="@+id/addUser_llMain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -211,7 +205,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
                     android:orientation="horizontal">
 
                     <ImageView
@@ -219,7 +212,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginEnd="10dp"
                         android:contentDescription="@string/login_usernameIconDesc"
-                        android:src="@drawable/ic_user" />
+                        android:src="@drawable/ic_adduser" />
 
                     <EditText
                         android:id="@+id/addUser_username"
@@ -240,10 +233,10 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:contentDescription="NickNameIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="10dp"
+                        android:contentDescription="NickNameIcon"
                         android:src="@drawable/ic_nickname" />
 
                     <EditText
@@ -252,8 +245,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:autofillHints="password"
-                        android:imeOptions="actionGo"
                         android:hint="NickName"
+                        android:imeOptions="actionGo"
                         android:inputType="text"
                         android:minHeight="48dp" />
 
@@ -266,10 +259,10 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:contentDescription="serverIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="10dp"
+                        android:contentDescription="serverIcon"
                         android:src="@drawable/ic_changserver" />
 
                     <EditText
@@ -278,8 +271,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:autofillHints="password"
-                        android:imeOptions="actionGo"
                         android:hint="Server"
+                        android:imeOptions="actionGo"
                         android:inputType="text"
                         android:minHeight="48dp" />
 
@@ -293,10 +286,10 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:contentDescription="addUserPicIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="10dp"
+                        android:contentDescription="addUserPicIcon"
                         android:src="@drawable/ic_addpic" />
 
                     <EditText
@@ -304,8 +297,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:imeOptions="actionGo"
                         android:hint="Contact Pic"
+                        android:imeOptions="actionGo"
                         android:inputType="text"
                         android:minHeight="48dp" />
 

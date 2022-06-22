@@ -52,22 +52,22 @@
 
                 <ImageView
                     android:id="@+id/setting_logo"
-                    android:layout_width="wrap_content"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/login_logoDesc"
                     android:maxWidth="80dp"
                     android:maxHeight="80dp"
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/chat_app_logo" />
+                    app:srcCompat="@drawable/ic_setting" />
 
                 <TextView
                     android:id="@+id/setting_logoText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Setting Page"
+                    android:text="@string/settings_page"
                     android:textSize="34sp" />
 
 

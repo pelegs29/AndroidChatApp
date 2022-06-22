@@ -50,10 +50,15 @@
         </activity>
         <activity
             android:name=".ContactsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.ChatApp.LoginSignup"
+        />
+
         <activity
             android:name=".ConversationActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.ChatApp.LoginSignup"
+        />
 
         <meta-data
             android:name="preloaded_fonts"
