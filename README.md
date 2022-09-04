@@ -54,6 +54,11 @@
     - cross server communication in real time
     - chat with users from different servers and different devices
 
+
+
+
+# :heavy_check_mark: Features <a name="features"/>
+<img width="1424" alt="Screen Shot 2022-09-04 at 19 55 07" src="https://user-images.githubusercontent.com/92450447/188325196-78da100f-05cf-4ae2-b3ff-60fec8f3e824.png">
 <br/>
 <br/>
 
